@@ -14,13 +14,13 @@ h1 { margin:0; font-size:32px; } .subtitle { margin-top:8px; color:var(--muted);
 .metric { background:rgba(255,255,255,.72); border:1px solid var(--line); border-radius:18px; padding:14px; } .metric span { display:block; color:var(--muted); font-size:13px; } .metric b { font-size:22px; }
 section { margin-top:24px; padding:22px; border:1px solid var(--line); border-radius:24px; background:var(--paper); }
 h2 { margin:0 0 14px; font-size:22px; } h3 { margin:0 0 8px; } h3 span { color:var(--muted); font-size:13px; font-weight:500; }
-.card-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; } .card-grid.three { grid-template-columns:repeat(3,minmax(0,1fr)); }
+.card-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; } .card-grid.three { grid-template-columns:repeat(3,minmax(0,1fr)); } .card-grid.one-column { grid-template-columns:1fr; }
 .card, .mini-card { background:var(--card); border:1px solid var(--line); border-radius:20px; padding:16px; position:relative; }
 .rank { position:absolute; right:14px; top:12px; color:var(--muted); font-weight:700; }
 .chips { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0; } .chips span, .pill { display:inline-block; border-radius:999px; padding:4px 9px; background:#f3ebe2; color:#5f5349; font-size:12px; }
 dl { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px 14px; margin:12px 0 0; } dt { color:var(--muted); font-size:12px; } dd { margin:0; font-weight:700; }
 .label { display:inline-block; padding:4px 10px; border-radius:999px; font-size:12px; font-weight:800; margin-bottom:8px; } .label.buy { color:var(--green); background:#ddf3e7; } .label.watch { color:var(--amber); background:#fff0cc; } .label.exclude { color:var(--red); background:#ffe0dd; }
-.reason { font-weight:600; } details { margin-top:12px; } summary { cursor:pointer; color:var(--accent); font-weight:700; }
+.reason { font-weight:600; } details { margin-top:12px; } summary { cursor:pointer; color:var(--accent); font-weight:700; } .qual-detail { margin-top:12px; padding:12px; background:#fbf5ef; border-radius:14px; } .qual-detail p { margin:6px 0; }
 .pnl { font-size:28px; font-weight:900; margin:8px 0; } .pnl span { font-size:16px; } .positive { color:var(--green); } .negative { color:var(--red); }
 .note-box { background:#fff; border:1px solid var(--line); border-radius:18px; padding:18px; } .note-box h3 { margin-top:18px; color:var(--accent); } .note-box h3:first-child { margin-top:0; } .bullet { margin:4px 0; }
 .scan-summary { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:12px; }
@@ -232,7 +232,7 @@ dl { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px 14px; 
 
 <section>
   <h2>3. 정성평가 결과</h2>
-  <div class="card-grid">
+  <div class="card-grid one-column">
             <article class="card qual-card">
               <div class="label buy">BUY</div>
               <h3>현대모비스 <span>012330</span></h3>
@@ -242,12 +242,11 @@ dl { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px 14px; 
                 <div><dt>지속성</dt><dd>높음</dd></div>
                 <div><dt>직접성</dt><dd>높음</dd></div>
               </dl>
-              <details>
-                <summary>촉매·위험·출처 보기</summary>
+              <div class="qual-detail">
                 <p><b>촉매:</b> 램프사업부 매각 노사 합의에 따른 파업 리스크 해소와 보스턴다이내믹스/휴머노이드 로봇 부품 밸류체인 재평가</p>
                 <p><b>위험:</b> 급등폭이 커 단기 차익실현 가능성은 있으나 회사 직접 이슈와 그룹 로봇 내러티브가 동시에 작동</p>
                 <p><b>출처:</b> 머니투데이 2026-05-21 램프사업부 매각 노사 합의/파업 마무리; 머니투데이 2026-05-21 다올증권 휴머노이드 로봇 부품 주도 분석; 이투데이 2026-05-21 로봇 밸류체인 재평가 특징주</p>
-              </details>
+              </div>
             </article>
             
             <article class="card qual-card">
@@ -259,12 +258,11 @@ dl { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px 14px; 
                 <div><dt>지속성</dt><dd>중간</dd></div>
                 <div><dt>직접성</dt><dd>중간</dd></div>
               </dl>
-              <details>
-                <summary>촉매·위험·출처 보기</summary>
+              <div class="qual-detail">
                 <p><b>촉매:</b> LG전자 로봇/피지컬AI 기대감과 로봇 밸류체인 계열사 가치 재평가가 지주사 LG로 확산</p>
                 <p><b>위험:</b> 지주사 수혜는 자회사/계열사 가치 반영 성격이라 직접성이 낮고 최근 로봇 테마 과열 부담 존재</p>
                 <p><b>출처:</b> 아주경제 2026-05-21 LG전자 로봇 기대감 강세; 매일경제 2026-05 로봇 밸류체인 계열사 가치 상승이 LG 주가 견인; 조선비즈 2026-05-15 LG전자 로봇/피지컬AI 재평가</p>
-              </details>
+              </div>
             </article>
             
             <article class="card qual-card">
@@ -276,12 +274,11 @@ dl { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px 14px; 
                 <div><dt>지속성</dt><dd>중간</dd></div>
                 <div><dt>직접성</dt><dd>중간</dd></div>
               </dl>
-              <details>
-                <summary>촉매·위험·출처 보기</summary>
+              <div class="qual-detail">
                 <p><b>촉매:</b> 1분기 수출 비중 77.5%와 글로벌 신사업/브랜드 투자 기대, 750억원 CB를 통한 확장 자금 조달</p>
                 <p><b>위험:</b> 당일 급등을 설명하는 신선한 단일 촉매가 약하고 CB 발행은 희석 부담도 동반</p>
                 <p><b>출처:</b> 메디컬투데이 2026-05 원텍 1분기 수출 비중 77.5%; 데이터투자 2026-05-14 750억원 CB 발행/글로벌 신사업 및 채무상환; 씽크풀 2026-05 원텍 중장기 성장 기반 코멘트</p>
-              </details>
+              </div>
             </article>
             </div>
 </section>
@@ -322,7 +319,7 @@ dl { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px 14px; 
 <section>
   <h2>6. 전체 정량 스캔 데이터</h2>
   <details>
-    <summary>scan_all 원자료 펼치기 / 접기</summary>
+    <summary>전체 정량 스캔 원자료 펼치기 / 접기</summary>
     <div class="scan-summary">
       <span class="pill">통과 10</span>
       <span class="pill">탈락 340</span>
