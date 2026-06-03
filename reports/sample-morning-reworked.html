@@ -68,14 +68,12 @@ dl { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px 14px; 
 .order-flow summary { cursor:pointer; color:var(--muted); font-size:13px; font-weight:800; }
 .order-flow dl { grid-template-columns:repeat(2,minmax(0,1fr)); }
 .pnl { font-size:28px; font-weight:900; margin:8px 0; } .pnl span { font-size:16px; } .positive { color:var(--green); } .negative { color:var(--red); } .expectation-line { border:1px solid var(--line); border-radius:16px; padding:12px 14px; background:#fff7ed; font-weight:700; } .expectation-line span { display:block; margin-top:4px; color:var(--muted); font-size:13px; }
+.note-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
 .note-box { background:#fff; border:1px solid var(--line); border-radius:18px; padding:18px; } .review-note { margin-top:14px; } .note-box h3 { margin-top:18px; color:var(--accent); } .note-box h3:first-child { margin-top:0; } .bullet { margin:4px 0; }
-.inline-note { margin-top:12px; border:1px solid var(--line); border-radius:14px; padding:11px 12px; background:#fffdf9; }
-.inline-note b { display:block; margin-bottom:4px; color:var(--accent); font-size:12px; }
-.inline-note p { margin:0; color:var(--ink); }
 .scan-summary { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:12px; }
 .table-wrap { max-height:520px; overflow:auto; border:1px solid var(--line); border-radius:14px; background:white; } table { width:100%; border-collapse:collapse; font-size:13px; } th,td { border-bottom:1px solid #efe5da; padding:8px 9px; text-align:left; white-space:nowrap; } th { position:sticky; top:0; background:#f5ece3; z-index:1; } tr.pass td { background:#f7fff9; } tr.error td { background:#fff1ef; }
 .muted { color:var(--muted); } .note { color:var(--muted); font-size:13px; margin-top:10px; }
-@media (max-width:900px) { .metrics, .card-grid, .card-grid.three { grid-template-columns:1fr; } dl { grid-template-columns:1fr; } .qual-head, .position-head { flex-direction:column; } .confidence, .sell-plan { text-align:left; } .position-summary { grid-template-columns:repeat(2,minmax(0,1fr)); } .position-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } .quant-grid { grid-template-columns:repeat(4,minmax(0,1fr)); } .qualitative-grid { grid-template-columns:repeat(3,minmax(0,1fr)); } .summary-item { padding:9px 7px; } .summary-item b { font-size:clamp(11px,3.2vw,16px); white-space:nowrap; } .item-label { font-size:clamp(9px,2.8vw,12px); white-space:nowrap; } }
+@media (max-width:900px) { .metrics, .card-grid, .card-grid.three, .note-grid { grid-template-columns:1fr; } dl { grid-template-columns:1fr; } .qual-head, .position-head { flex-direction:column; } .confidence, .sell-plan { text-align:left; } .position-summary { grid-template-columns:repeat(2,minmax(0,1fr)); } .position-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } .quant-grid { grid-template-columns:repeat(4,minmax(0,1fr)); } .qualitative-grid { grid-template-columns:repeat(3,minmax(0,1fr)); } .summary-item { padding:9px 7px; } .summary-item b { font-size:clamp(11px,3.2vw,16px); white-space:nowrap; } .item-label { font-size:clamp(9px,2.8vw,12px); white-space:nowrap; } }
 @media (max-width:360px) { .summary-grid { gap:6px; } .summary-item { padding:8px 5px; } .summary-item b { font-size:11px; } .item-label { font-size:9px; } }
 </style>
 </head>
@@ -93,7 +91,7 @@ dl { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px 14px; 
 </header>
 
 <section>
-  <h2>1. 실제 손익/회고</h2>
+  <h2>1. 오늘 매도 결과</h2>
   <div class="card-grid">
             <article class="card review-card">
               <h3>대한AI반도체 <span>123450</span></h3>
@@ -109,7 +107,6 @@ dl { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px 14px; 
                 <div><dt>수수료</dt><dd>820원</dd></div>
                 <div><dt>제세금</dt><dd>1,170원</dd></div>
               </dl>
-              <div class="inline-note"><b>회고 메모</b><p>대한AI반도체는 직접 공시와 거래대금 동반 신호가 다음날 초반까지 이어졌습니다.</p></div>
             </article>
             
             <article class="card review-card">
@@ -126,7 +123,6 @@ dl { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px 14px; 
                 <div><dt>수수료</dt><dd>410원</dd></div>
                 <div><dt>제세금</dt><dd>590원</dd></div>
               </dl>
-              <div class="inline-note"><b>회고 메모</b><p>넥스트바이오는 WATCH였지만 거래대금이 커서 예상보다 강하게 버텼습니다.</p></div>
             </article>
             </div>
 </section>
@@ -207,9 +203,20 @@ dl { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px 14px; 
 </section>
 
 <section>
-  <h2>4. 개선 포인트</h2>
-  <div class="note-box"><p class="bullet">• 직접 공시와 거래대금이 함께 붙은 BUY는 우선순위를 유지합니다.</p>
-<p class="bullet">• WATCH라도 60일 거래대금 상위권이면 소액 테스트 후보로 분리 검토합니다.</p></div>
+  <h2>4. 회고 / 개선 포인트</h2>
+  <div class="note-grid">
+    <div class="note-box">
+      <h3>회고 메모</h3>
+      <p class="bullet">• 대한AI반도체는 직접 공시와 거래대금 동반 신호가 다음날 초반까지 이어졌습니다.</p>
+<p class="bullet">• 넥스트바이오는 WATCH였지만 거래대금이 커서 예상보다 강하게 버텼습니다.</p>
+<p class="bullet">• 한강로보틱스는 단순 테마 상승이라 EXCLUDE 판단이 맞았습니다.</p>
+    </div>
+    <div class="note-box">
+      <h3>개선 포인트</h3>
+      <p class="bullet">• 직접 공시와 거래대금이 함께 붙은 BUY는 우선순위를 유지합니다.</p>
+<p class="bullet">• WATCH라도 60일 거래대금 상위권이면 소액 테스트 후보로 분리 검토합니다.</p>
+    </div>
+  </div>
 </section>
         
 </div></body></html>
