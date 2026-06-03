@@ -90,9 +90,9 @@ dl { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px 14px; 
   <div class="subtitle">매도일 20260604</div>
   <div class="metrics">
     
-    <div class="metric"><span>매도 대상</span><b>2종목</b></div>
-    <div class="metric"><span>주문 전송</span><b>2건</b></div>
-    <div class="metric"><span>손익 반영</span><b>2종목</b></div>
+    <div class="metric"><span>매도 완료</span><b>2종목</b></div>
+    <div class="metric"><span>매수금액</span><b>750,950원</b></div>
+    <div class="metric"><span>매도금액</span><b>768,050원</b></div>
     <div class="metric"><span>실현손익</span><b>+14,110원 · +1.88%</b></div>
         
   </div>
@@ -101,112 +101,46 @@ dl { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px 14px; 
 <section>
   <h2>1. 오늘 매도 결과</h2>
   <div class="card-grid">
-            <article class="card review-card">
-              <div class="result-head">
+            <article class="card position-card">
+              <div class="position-head">
                 <div>
                   <div class="status-badge profit">수익 실현</div>
                   <h3>대한AI반도체 <span>123450</span></h3>
                 </div>
+                <div class="sell-plan"><span>손익</span><b class="positive">+11,510원 · +2.31%</b></div>
               </div>
-              <div class="pnl positive">+11,510원 <span>+2.31%</span></div>
-              <dl>
-                <div><dt>매수금액</dt><dd>498,150원</dd></div>
-                <div><dt>매도금액</dt><dd>511,650원</dd></div>
-                <div><dt>수수료</dt><dd>820원</dd></div>
-                <div><dt>제세금</dt><dd>1,170원</dd></div>
-              </dl>
+              <div class="position-grid">
+                <div class="summary-item primary"><div class="item-label">수량</div><b>27주</b></div>
+                <div class="summary-item"><div class="item-label">매수단가</div><b>18,450원</b></div>
+                <div class="summary-item"><div class="item-label">매도단가</div><b>18,950원</b></div>
+                <div class="summary-item"><div class="item-label">매수금액</div><b>498,150원</b></div>
+                <div class="summary-item"><div class="item-label">매도금액</div><b>511,650원</b></div>
+                <div class="summary-item"><div class="item-label">수수료/세금</div><b>820원 / 1,170원</b></div>
+              </div>
             </article>
             
-            <article class="card review-card">
-              <div class="result-head">
+            <article class="card position-card">
+              <div class="position-head">
                 <div>
                   <div class="status-badge profit">수익 실현</div>
                   <h3>넥스트바이오 <span>234560</span></h3>
                 </div>
+                <div class="sell-plan"><span>손익</span><b class="positive">+2,600원 · +1.03%</b></div>
               </div>
-              <div class="pnl positive">+2,600원 <span>+1.03%</span></div>
-              <dl>
-                <div><dt>매수금액</dt><dd>252,800원</dd></div>
-                <div><dt>매도금액</dt><dd>256,400원</dd></div>
-                <div><dt>수수료</dt><dd>410원</dd></div>
-                <div><dt>제세금</dt><dd>590원</dd></div>
-              </dl>
+              <div class="position-grid">
+                <div class="summary-item primary"><div class="item-label">수량</div><b>4주</b></div>
+                <div class="summary-item"><div class="item-label">매수단가</div><b>63,200원</b></div>
+                <div class="summary-item"><div class="item-label">매도단가</div><b>64,100원</b></div>
+                <div class="summary-item"><div class="item-label">매수금액</div><b>252,800원</b></div>
+                <div class="summary-item"><div class="item-label">매도금액</div><b>256,400원</b></div>
+                <div class="summary-item"><div class="item-label">수수료/세금</div><b>410원 / 590원</b></div>
+              </div>
             </article>
             </div>
 </section>
 
 <section>
-  <h2>2. 매도 주문/체결</h2>
-  
-  <div class="position-summary">
-    <div class="summary-item primary"><div class="item-label">매도 대상</div><b>2종목</b></div>
-    <div class="summary-item"><div class="item-label">주문 전송</div><b>2건</b></div>
-    <div class="summary-item"><div class="item-label">손익 반영</div><b>2종목</b></div>
-    <div class="summary-item"><div class="item-label">확인 필요</div><b>0건</b></div>
-  </div>
-  <div class="status-strip"><span class="status-pill sent">주문전송 2</span><span class="status-pill partial">부분체결 0</span><span class="status-pill dry">모의주문 0</span><span class="status-pill skip">스킵 0</span><span class="status-pill error">오류 0</span></div>
-        
-  <div class="card-grid">
-            <article class="card position-card sent">
-              <div class="position-head">
-                <div>
-                  <div class="status-badge sent">주문전송</div>
-                  <h3>대한AI반도체 <span>123450</span></h3>
-                </div>
-                <div class="sell-plan"><span>회고 연결</span><b>손익 반영</b></div>
-              </div>
-              <div class="position-grid">
-                <div class="summary-item primary"><div class="item-label">매도수량</div><b>27주</b></div>
-                <div class="summary-item"><div class="item-label">주문 기준가</div><b>18,950원</b></div>
-                <div class="summary-item"><div class="item-label">주문 기준금액</div><b>511,650원</b></div>
-                <div class="summary-item"><div class="item-label">시장/방식</div><b>NXT · best-limit</b></div>
-                <div class="summary-item"><div class="item-label">주문시각</div><b>08:30:18</b></div>
-                <div class="summary-item"><div class="item-label">검토 상태</div><b class="state-filled">손익 반영</b></div>
-              </div>
-              <details class="order-flow">
-                <summary>매도 흐름 보기</summary>
-                <dl>
-                  <div><dt>주문시점 현재가</dt><dd>18,950원</dd></div>
-                  <div><dt>매수 기준일</dt><dd>20260603</dd></div>
-                  <div><dt>원본 상태</dt><dd>ORDER_SENT</dd></div>
-                  <div><dt>모의 여부</dt><dd>False</dd></div>
-                </dl>
-                <p class="muted">sell order sent</p>
-              </details>
-            </article>
-            
-            <article class="card position-card sent">
-              <div class="position-head">
-                <div>
-                  <div class="status-badge sent">주문전송</div>
-                  <h3>넥스트바이오 <span>234560</span></h3>
-                </div>
-                <div class="sell-plan"><span>회고 연결</span><b>손익 반영</b></div>
-              </div>
-              <div class="position-grid">
-                <div class="summary-item primary"><div class="item-label">매도수량</div><b>4주</b></div>
-                <div class="summary-item"><div class="item-label">주문 기준가</div><b>64,100원</b></div>
-                <div class="summary-item"><div class="item-label">주문 기준금액</div><b>256,400원</b></div>
-                <div class="summary-item"><div class="item-label">시장/방식</div><b>NXT · best-limit</b></div>
-                <div class="summary-item"><div class="item-label">주문시각</div><b>08:30:24</b></div>
-                <div class="summary-item"><div class="item-label">검토 상태</div><b class="state-filled">손익 반영</b></div>
-              </div>
-              <details class="order-flow">
-                <summary>매도 흐름 보기</summary>
-                <dl>
-                  <div><dt>주문시점 현재가</dt><dd>64,100원</dd></div>
-                  <div><dt>매수 기준일</dt><dd>20260603</dd></div>
-                  <div><dt>원본 상태</dt><dd>ORDER_SENT</dd></div>
-                  <div><dt>모의 여부</dt><dd>False</dd></div>
-                </dl>
-                <p class="muted">sell order sent</p>
-              </details>
-            </article>
-            </div>
-</section>
-
-<section>
-  <h2>3. 정성예측 검증</h2>
+  <h2>2. 정성예측 검증</h2>
   <div class="scan-summary">
     <span class="pill">예상 부합 2</span>
     <span class="pill">예상 초과 1</span>
@@ -273,7 +207,7 @@ dl { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px 14px; 
 </section>
 
 <section>
-  <h2>4. 회고 / 개선 포인트</h2>
+  <h2>3. 회고 / 개선 포인트</h2>
   <div class="note-grid">
     <div class="note-box">
       <h3>오늘 맞은 판단 / 틀린 판단</h3>
