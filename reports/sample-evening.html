@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NXT 저녁 매수 리포트 20260603</title>
+<style>
+:root { --bg:#f6f1ea; --paper:#fffaf3; --card:#ffffff; --ink:#24201c; --muted:#776c61; --line:#eaded1; --accent:#a95a48; --green:#146c43; --red:#9e2f2a; --amber:#9a6500; }
+* { box-sizing:border-box; } body { margin:0; background:var(--bg); color:var(--ink); font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; line-height:1.55; }
+.container { max-width:1180px; margin:0 auto; padding:32px 18px 72px; }
+.hero { border:1px solid var(--line); border-radius:28px; padding:28px; background:linear-gradient(135deg,#fffaf3,#f1dfd0); box-shadow:0 10px 30px rgba(80,50,30,.06); }
+h1 { margin:0; font-size:32px; } .subtitle { margin-top:8px; color:var(--muted); }
+.metrics { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; margin-top:20px; }
+.metric { background:rgba(255,255,255,.72); border:1px solid var(--line); border-radius:18px; padding:14px; } .metric span { display:block; color:var(--muted); font-size:13px; } .metric b { font-size:22px; }
+section { margin-top:24px; padding:22px; border:1px solid var(--line); border-radius:24px; background:var(--paper); }
+h2 { margin:0 0 14px; font-size:22px; } h3 { margin:0 0 8px; } h3 span { color:var(--muted); font-size:13px; font-weight:500; }
+.card-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; } .card-grid.three { grid-template-columns:repeat(3,minmax(0,1fr)); } .card-grid.one-column { grid-template-columns:1fr; }
+.card, .mini-card { background:var(--card); border:1px solid var(--line); border-radius:20px; padding:16px; position:relative; }
+.rank { position:absolute; right:14px; top:12px; color:var(--muted); font-weight:700; }
+.chips { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0; } .chips span, .pill { display:inline-block; border-radius:999px; padding:4px 9px; background:#f3ebe2; color:#5f5349; font-size:12px; }
+dl { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px 14px; margin:12px 0 0; } dt { color:var(--muted); font-size:12px; } dd { margin:0; font-weight:700; }
+.label { display:inline-block; padding:4px 10px; border-radius:999px; font-size:12px; font-weight:800; margin-bottom:8px; } .label.buy { color:var(--green); background:#ddf3e7; } .label.watch { color:var(--amber); background:#fff0cc; } .label.exclude { color:var(--red); background:#ffe0dd; }
+.qual-card { padding:0; overflow:hidden; border-left:6px solid var(--line); } .qual-card.buy { border-left-color:var(--green); } .qual-card.watch { border-left-color:var(--amber); } .qual-card.exclude { border-left-color:var(--red); }
+.qual-head { display:flex; justify-content:space-between; gap:14px; align-items:flex-start; padding:18px 18px 8px; } .qual-head h3 { margin-bottom:0; }
+.confidence { min-width:86px; text-align:right; padding:8px 10px; border-radius:14px; background:#fbf5ef; } .confidence span { display:block; color:var(--muted); font-size:12px; } .confidence b { font-size:22px; }
+.reason { margin:8px 18px 12px; padding:14px 16px; border-radius:16px; background:#fff7ed; font-weight:700; }
+.qual-tags { display:flex; flex-wrap:wrap; gap:8px; margin:0 18px 14px; } .qual-tags span { border-radius:999px; padding:5px 10px; background:#f3ebe2; color:#5f5349; font-size:12px; font-weight:700; }
+.expected-box { margin:0 18px 14px; border:1px solid var(--line); border-radius:16px; padding:12px 14px; background:#fffdf9; } .expected-box span { display:block; margin-bottom:5px; color:var(--accent); font-size:12px; font-weight:900; } .expected-box p { margin:0; }
+.qual-detail-grid { display:grid; grid-template-columns:1.4fr 1fr; gap:12px; padding:0 18px 18px; } .qual-box { border:1px solid var(--line); border-radius:16px; padding:13px 14px; background:#fff; } .qual-box span { display:block; margin-bottom:6px; color:var(--accent); font-size:12px; font-weight:900; letter-spacing:.03em; } .qual-box p { margin:0; } .qual-box.risk span { color:var(--red); }
+.pnl { font-size:28px; font-weight:900; margin:8px 0; } .pnl span { font-size:16px; } .positive { color:var(--green); } .negative { color:var(--red); } .expectation-line { border:1px solid var(--line); border-radius:16px; padding:12px 14px; background:#fff7ed; font-weight:700; } .expectation-line span { display:block; margin-top:4px; color:var(--muted); font-size:13px; }
+.note-box { background:#fff; border:1px solid var(--line); border-radius:18px; padding:18px; } .note-box h3 { margin-top:18px; color:var(--accent); } .note-box h3:first-child { margin-top:0; } .bullet { margin:4px 0; }
+.scan-summary { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:12px; }
+.table-wrap { max-height:520px; overflow:auto; border:1px solid var(--line); border-radius:14px; background:white; } table { width:100%; border-collapse:collapse; font-size:13px; } th,td { border-bottom:1px solid #efe5da; padding:8px 9px; text-align:left; white-space:nowrap; } th { position:sticky; top:0; background:#f5ece3; z-index:1; } tr.pass td { background:#f7fff9; } tr.error td { background:#fff1ef; }
+.muted { color:var(--muted); } .note { color:var(--muted); font-size:13px; margin-top:10px; }
+@media (max-width:900px) { .metrics, .card-grid, .card-grid.three, .qual-detail-grid { grid-template-columns:1fr; } dl { grid-template-columns:1fr; } .qual-head { flex-direction:column; } .confidence { text-align:left; } }
+</style>
+</head>
+<body><div class="container">
+<header class="hero">
+  <h1>🌸 NXT 저녁 매수 리포트</h1>
+  <div class="subtitle">기준일 20260603</div>
+  <div class="metrics">
+    
+    <div class="metric"><span>전체 스캔</span><b>0종목</b></div>
+    <div class="metric"><span>정량 통과</span><b>0종목</b></div>
+    <div class="metric"><span>정성 라벨</span><b>BUY 0 / WATCH 0</b></div>
+    <div class="metric"><span>매수 결과</span><b>체결 0 / 부분 0</b></div>
+        
+  </div>
+</header>
+
+<section>
+  <h2>1. 정량 평가 리스트</h2>
+  <div class="card-grid three"><p>정량 후보 없음</p></div>
+</section>
+
+<section>
+  <h2>2. 정성평가 결과</h2>
+  <div class="card-grid one-column"><p>정성평가 없음</p></div>
+</section>
+
+<section>
+  <h2>3. 매수 주문/체결</h2>
+  <div class="card-grid"><p>매수 주문 없음</p></div>
+</section>
+
+<section>
+  <h2>4. 전체 정량 스캔 데이터</h2>
+  <details>
+    <summary>전체 정량 스캔 원자료 펼치기 / 접기</summary>
+    <div class="scan-summary">
+      <span class="pill">통과 0</span>
+      <span class="pill">탈락 0</span>
+      <span class="pill">오류 0</span>
+      <span class="pill">없음</span>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>코드</th><th>종목</th><th>지수</th><th>등락률</th><th>거래대금</th><th>60일 순위</th><th>60일 분위</th><th>현재/고가</th><th>거래량배수</th><th>상태</th><th>탈락 사유</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </details>
+</section>
+        
+</div></body></html>
