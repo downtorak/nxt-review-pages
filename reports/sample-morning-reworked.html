@@ -60,9 +60,10 @@ dl { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px 14px; 
 .state-filled { color:var(--green); } .state-pending { color:var(--red); }
 .position-card { overflow:visible; box-shadow:0 8px 22px rgba(80,50,30,.04); }
 .position-card.pending, .position-card.error { border-color:#e5cfc9; }
-.prediction-card { padding:18px; }
-.prediction-card .sell-plan { min-width:128px; }
-.prediction-card .sell-plan b { font-size:18px; }
+.position-card.prediction-card { padding:18px; }
+.qual-card.prediction-card { padding:0; }
+.prediction-result { min-width:128px; }
+.prediction-result b { font-size:18px; }
 .position-head { display:flex; justify-content:space-between; gap:14px; align-items:flex-start; margin-bottom:12px; }
 .result-head { display:flex; justify-content:space-between; gap:14px; align-items:flex-start; margin-bottom:8px; }
 .status-badge { display:inline-block; margin-bottom:8px; border:1px solid var(--line); border-radius:999px; padding:4px 10px; background:#fbf6ef; color:#5f5349; font-size:12px; font-weight:900; }
@@ -154,9 +155,9 @@ dl { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px 14px; 
     <div class="summary-item"><div class="item-label">예상 하회</div><b>0종목</b></div>
   </div>
         
-  <div class="card-grid">
-            <article class="card position-card prediction-card buy">
-              <div class="position-head">
+  <div class="card-grid one-column">
+            <article class="card qual-card prediction-card buy">
+              <div class="qual-head">
                 <div>
                   <div class="label-row">
                     <div class="label buy">매수</div>
@@ -164,23 +165,28 @@ dl { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px 14px; 
                   </div>
                   <h3>대한AI반도체</h3>
                 </div>
-                <div class="sell-plan"><span>예측 결과</span><b class="neutral">예상 부합</b></div>
+                <div class="confidence prediction-result"><span>예측 결과</span><b class="neutral">예상 부합</b></div>
               </div>
-              <div class="position-grid">
-                <div class="summary-item"><div class="item-label">예상 등락률</div><b>+2.40%</b></div>
-                <div class="summary-item"><div class="item-label">실제 등락률</div><b class="positive">+2.71%</b></div>
-                <div class="summary-item"><div class="item-label">차이</div><b class="positive">+0.31%p</b></div>
+              <div class="summary-panel qualitative-summary">
+                <div class="panel-title">예측 검증</div>
+                <div class="summary-grid qualitative-grid">
+                  <div class="summary-item"><div class="item-label"><span class="hint-wrap" aria-label="다음날 NXT 초반 가격이 기준가 대비 얼마나 움직일지 잡은 보수적 예상치입니다.">예상 등락률<span class="hint-text">다음날 NXT 초반 가격이 기준가 대비 얼마나 움직일지 잡은 보수적 예상치입니다.</span></span></div><b>+2.40%</b></div>
+<div class="summary-item"><div class="item-label">실제 등락률</div><b><span class="positive">+2.71%</span></b></div>
+<div class="summary-item"><div class="item-label">차이</div><b><span class="positive">+0.31%p</span></b></div>
+                </div>
               </div>
-              <div class="sentence-panel prediction-note">
-                <div class="sentence-box decision">
-                  <div class="sentence-label">개선 메모</div>
-                  <p>직접 공시와 거래대금 동반 신호는 다음날 초반까지 유효했음</p>
+              <div class="sentence-panel">
+                <div class="sentence-stack">
+                  <div class="sentence-box decision">
+                    <div class="sentence-label">개선 메모</div>
+                    <p>직접 공시와 거래대금 동반 신호는 다음날 초반까지 유효했음</p>
+                  </div>
                 </div>
               </div>
             </article>
             
-            <article class="card position-card prediction-card watch">
-              <div class="position-head">
+            <article class="card qual-card prediction-card watch">
+              <div class="qual-head">
                 <div>
                   <div class="label-row">
                     <div class="label watch">관찰</div>
@@ -188,23 +194,28 @@ dl { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px 14px; 
                   </div>
                   <h3>넥스트바이오</h3>
                 </div>
-                <div class="sell-plan"><span>예측 결과</span><b class="positive">예상 초과</b></div>
+                <div class="confidence prediction-result"><span>예측 결과</span><b class="positive">예상 초과</b></div>
               </div>
-              <div class="position-grid">
-                <div class="summary-item"><div class="item-label">예상 등락률</div><b>+0.80%</b></div>
-                <div class="summary-item"><div class="item-label">실제 등락률</div><b class="positive">+1.42%</b></div>
-                <div class="summary-item"><div class="item-label">차이</div><b class="positive">+0.62%p</b></div>
+              <div class="summary-panel qualitative-summary">
+                <div class="panel-title">예측 검증</div>
+                <div class="summary-grid qualitative-grid">
+                  <div class="summary-item"><div class="item-label"><span class="hint-wrap" aria-label="다음날 NXT 초반 가격이 기준가 대비 얼마나 움직일지 잡은 보수적 예상치입니다.">예상 등락률<span class="hint-text">다음날 NXT 초반 가격이 기준가 대비 얼마나 움직일지 잡은 보수적 예상치입니다.</span></span></div><b>+0.80%</b></div>
+<div class="summary-item"><div class="item-label">실제 등락률</div><b><span class="positive">+1.42%</span></b></div>
+<div class="summary-item"><div class="item-label">차이</div><b><span class="positive">+0.62%p</span></b></div>
+                </div>
               </div>
-              <div class="sentence-panel prediction-note">
-                <div class="sentence-box decision">
-                  <div class="sentence-label">개선 메모</div>
-                  <p>공식 공시 전 기대감도 거래대금이 크면 짧게 이어질 수 있음</p>
+              <div class="sentence-panel">
+                <div class="sentence-stack">
+                  <div class="sentence-box decision">
+                    <div class="sentence-label">개선 메모</div>
+                    <p>공식 공시 전 기대감도 거래대금이 크면 짧게 이어질 수 있음</p>
+                  </div>
                 </div>
               </div>
             </article>
             
-            <article class="card position-card prediction-card exclude">
-              <div class="position-head">
+            <article class="card qual-card prediction-card exclude">
+              <div class="qual-head">
                 <div>
                   <div class="label-row">
                     <div class="label exclude">제외</div>
@@ -212,17 +223,22 @@ dl { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px 14px; 
                   </div>
                   <h3>한강로보틱스</h3>
                 </div>
-                <div class="sell-plan"><span>예측 결과</span><b class="neutral">예상 부합</b></div>
+                <div class="confidence prediction-result"><span>예측 결과</span><b class="neutral">예상 부합</b></div>
               </div>
-              <div class="position-grid">
-                <div class="summary-item"><div class="item-label">예상 등락률</div><b>-1.20%</b></div>
-                <div class="summary-item"><div class="item-label">실제 등락률</div><b class="negative">-2.77%</b></div>
-                <div class="summary-item"><div class="item-label">차이</div><b class="negative">-1.57%p</b></div>
+              <div class="summary-panel qualitative-summary">
+                <div class="panel-title">예측 검증</div>
+                <div class="summary-grid qualitative-grid">
+                  <div class="summary-item"><div class="item-label"><span class="hint-wrap" aria-label="다음날 NXT 초반 가격이 기준가 대비 얼마나 움직일지 잡은 보수적 예상치입니다.">예상 등락률<span class="hint-text">다음날 NXT 초반 가격이 기준가 대비 얼마나 움직일지 잡은 보수적 예상치입니다.</span></span></div><b>-1.20%</b></div>
+<div class="summary-item"><div class="item-label">실제 등락률</div><b><span class="negative">-2.77%</span></b></div>
+<div class="summary-item"><div class="item-label">차이</div><b><span class="negative">-1.57%p</span></b></div>
+                </div>
               </div>
-              <div class="sentence-panel prediction-note">
-                <div class="sentence-box decision">
-                  <div class="sentence-label">개선 메모</div>
-                  <p>간접 테마 상승은 다음날 차익실현 압력이 컸음</p>
+              <div class="sentence-panel">
+                <div class="sentence-stack">
+                  <div class="sentence-box decision">
+                    <div class="sentence-label">개선 메모</div>
+                    <p>간접 테마 상승은 다음날 차익실현 압력이 컸음</p>
+                  </div>
                 </div>
               </div>
             </article>
