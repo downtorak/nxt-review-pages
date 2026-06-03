@@ -73,6 +73,7 @@ dl { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px 14px; 
 .sell-plan { min-width:118px; text-align:right; padding:8px 10px; border:1px solid var(--line); border-radius:14px; background:#fffdf9; }
 .sell-plan span { display:block; color:var(--muted); font-size:12px; }
 .sell-plan b { display:block; font-size:15px; }
+.sell-plan b small, .metric b small { font-size:0.72em; font-weight:800; color:var(--muted); }
 .sell-plan em { display:block; margin-top:2px; font-size:12px; font-style:normal; font-weight:800; }
 .position-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; }
 .prediction-note { margin:12px 0 0; }
@@ -98,7 +99,7 @@ dl { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px 14px; 
     <div class="metric"><span>매도 완료</span><b>2종목</b></div>
     <div class="metric"><span>매수금액</span><b>750,950원</b></div>
     <div class="metric"><span>매도금액</span><b>768,050원</b></div>
-    <div class="metric"><span>실현손익</span><b>+14,110원</b><small>손익률 +1.88%</small></div>
+    <div class="metric"><span>실현손익</span><b>+14,110원 <small>(+1.88%)</small></b></div>
         
   </div>
 </header>
@@ -112,7 +113,7 @@ dl { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px 14px; 
                   <div class="status-badge profit">수익 실현</div>
                   <h3>대한AI반도체 <span>123450</span></h3>
                 </div>
-                <div class="sell-plan result-plan"><span>실현손익</span><b class="positive">+11,510원</b><em class="positive">손익률 +2.31%</em></div>
+                <div class="sell-plan result-plan"><span>실현손익</span><b class="positive">+11,510원 <small>(+2.31%)</small></b></div>
               </div>
               <div class="position-grid">
                 <div class="summary-item primary"><div class="item-label">수량</div><b>27주</b></div>
@@ -130,7 +131,7 @@ dl { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px 14px; 
                   <div class="status-badge profit">수익 실현</div>
                   <h3>넥스트바이오 <span>234560</span></h3>
                 </div>
-                <div class="sell-plan result-plan"><span>실현손익</span><b class="positive">+2,600원</b><em class="positive">손익률 +1.03%</em></div>
+                <div class="sell-plan result-plan"><span>실현손익</span><b class="positive">+2,600원 <small>(+1.03%)</small></b></div>
               </div>
               <div class="position-grid">
                 <div class="summary-item primary"><div class="item-label">수량</div><b>4주</b></div>
