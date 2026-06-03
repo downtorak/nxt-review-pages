@@ -50,6 +50,9 @@ dl { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px 14px; 
 .sentence-box.evidence { border-left-color:#caa565; }
 .sentence-box.evidence .sentence-label { color:var(--amber); }
 .position-summary { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:8px; margin-bottom:10px; }
+.section-takeaway { display:flex; justify-content:space-between; gap:12px; align-items:center; margin-bottom:10px; padding:12px 14px; border:1px solid #d9e5dc; border-radius:16px; background:#f7fff9; }
+.section-takeaway span { color:var(--green); font-size:12px; font-weight:900; white-space:nowrap; }
+.section-takeaway b { font-size:16px; }
 .status-strip { display:flex; flex-wrap:wrap; gap:8px; margin:0 0 14px; }
 .status-pill { display:inline-block; border:1px solid var(--line); border-radius:999px; padding:5px 10px; background:#fffaf3; color:#5f5349; font-size:12px; font-weight:800; }
 .status-pill.filled, .status-badge.filled { color:var(--green); background:#f4faf6; border-color:#cfe0d6; }
@@ -61,6 +64,9 @@ dl { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px 14px; 
 .state-filled { color:var(--green); } .state-pending { color:var(--red); }
 .position-card { overflow:visible; box-shadow:0 8px 22px rgba(80,50,30,.04); }
 .position-card.pending, .position-card.error { border-color:#e5cfc9; }
+.prediction-card { padding:18px; }
+.prediction-card .sell-plan { min-width:128px; }
+.prediction-card .sell-plan b { font-size:18px; }
 .position-head { display:flex; justify-content:space-between; gap:14px; align-items:flex-start; margin-bottom:12px; }
 .result-head { display:flex; justify-content:space-between; gap:14px; align-items:flex-start; margin-bottom:8px; }
 .status-badge { display:inline-block; margin-bottom:8px; border:1px solid var(--line); border-radius:999px; padding:4px 10px; background:#fbf6ef; color:#5f5349; font-size:12px; font-weight:900; }
@@ -71,16 +77,17 @@ dl { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px 14px; 
 .sell-plan span { display:block; color:var(--muted); font-size:12px; }
 .sell-plan b { display:block; font-size:15px; }
 .position-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; }
+.prediction-note { margin:12px 0 0; }
 .order-flow { margin-top:12px; border-top:1px solid var(--line); padding-top:10px; }
 .order-flow summary { cursor:pointer; color:var(--muted); font-size:13px; font-weight:800; }
 .order-flow dl { grid-template-columns:repeat(2,minmax(0,1fr)); }
-.pnl { font-size:28px; font-weight:900; margin:8px 0; } .pnl span { font-size:16px; } .positive { color:var(--green); } .negative { color:var(--red); } .expectation-line { border:1px solid var(--line); border-radius:16px; padding:12px 14px; background:#fff7ed; font-weight:700; } .expectation-line span { display:block; margin-top:4px; color:var(--muted); font-size:13px; }
+.pnl { font-size:28px; font-weight:900; margin:8px 0; } .pnl span { font-size:16px; } .positive { color:var(--green); } .negative { color:var(--red); } .neutral { color:#6f6258; }
 .note-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
 .note-box { background:#fff; border:1px solid var(--line); border-radius:18px; padding:18px; } .review-note { margin-top:14px; } .note-box h3 { margin-top:18px; color:var(--accent); } .note-box h3:first-child { margin-top:0; } .bullet { margin:4px 0; }
 .scan-summary { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:12px; }
 .table-wrap { max-height:520px; overflow:auto; border:1px solid var(--line); border-radius:14px; background:white; } table { width:100%; border-collapse:collapse; font-size:13px; } th,td { border-bottom:1px solid #efe5da; padding:8px 9px; text-align:left; white-space:nowrap; } th { position:sticky; top:0; background:#f5ece3; z-index:1; } tr.pass td { background:#f7fff9; } tr.error td { background:#fff1ef; }
 .muted { color:var(--muted); } .note { color:var(--muted); font-size:13px; margin-top:10px; }
-@media (max-width:900px) { .metrics, .card-grid, .card-grid.three, .note-grid { grid-template-columns:1fr; } dl { grid-template-columns:1fr; } .qual-head, .position-head { flex-direction:column; } .confidence, .sell-plan { text-align:left; } .position-summary { grid-template-columns:repeat(2,minmax(0,1fr)); } .position-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } .quant-grid { grid-template-columns:repeat(4,minmax(0,1fr)); } .qualitative-grid { grid-template-columns:repeat(3,minmax(0,1fr)); } .summary-item { padding:9px 7px; } .summary-item b { font-size:clamp(11px,3.2vw,16px); white-space:nowrap; } .item-label { font-size:clamp(9px,2.8vw,12px); white-space:nowrap; } }
+@media (max-width:900px) { .metrics, .card-grid, .card-grid.three, .note-grid { grid-template-columns:1fr; } dl { grid-template-columns:1fr; } .qual-head, .position-head, .section-takeaway { flex-direction:column; align-items:flex-start; } .confidence, .sell-plan { text-align:left; } .position-summary { grid-template-columns:repeat(2,minmax(0,1fr)); } .position-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } .quant-grid { grid-template-columns:repeat(4,minmax(0,1fr)); } .qualitative-grid { grid-template-columns:repeat(3,minmax(0,1fr)); } .summary-item { padding:9px 7px; } .summary-item b { font-size:clamp(11px,3.2vw,16px); white-space:nowrap; } .item-label { font-size:clamp(9px,2.8vw,12px); white-space:nowrap; } }
 @media (max-width:360px) { .summary-grid { gap:6px; } .summary-item { padding:8px 5px; } .summary-item b { font-size:11px; } .item-label { font-size:9px; } }
 </style>
 </head>
@@ -141,14 +148,23 @@ dl { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px 14px; 
 
 <section>
   <h2>2. 정성예측 검증</h2>
-  <div class="scan-summary">
-    <span class="pill">예상 부합 2</span>
-    <span class="pill">예상 초과 1</span>
-    <span class="pill">예상 하회 0</span>
+  
+  <div class="section-takeaway">
+    <span>검증 결론</span>
+    <b>정성 판단은 3종목 중 부합 2건, 초과 1건, 하회 0건입니다.</b>
   </div>
+        
+  
+  <div class="position-summary">
+    <div class="summary-item primary"><div class="item-label">검증 대상</div><b>3종목</b></div>
+    <div class="summary-item"><div class="item-label">예상 부합</div><b>2종목</b></div>
+    <div class="summary-item"><div class="item-label">예상 초과</div><b>1종목</b></div>
+    <div class="summary-item"><div class="item-label">예상 하회</div><b>0종목</b></div>
+  </div>
+        
   <div class="card-grid">
-            <article class="card prediction-card buy">
-              <div class="qual-head">
+            <article class="card position-card prediction-card buy">
+              <div class="position-head">
                 <div>
                   <div class="label-row">
                     <div class="label buy">매수</div>
@@ -156,18 +172,26 @@ dl { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px 14px; 
                   </div>
                   <h3>대한AI반도체</h3>
                 </div>
-                <div class="confidence"><span>결과</span><b>예상 부합</b></div>
+                <div class="sell-plan"><span>예측 결과</span><b class="neutral">예상 부합</b></div>
               </div>
-              <div class="expectation-line">
-                <b>예상 vs 08:30</b> +2.40% → +2.71%
-                <span>차이 +0.31%p · 기준가 18,450원 → 18,950원</span>
+              <div class="position-grid">
+                <div class="summary-item primary"><div class="item-label">판정</div><b>매수</b></div>
+                <div class="summary-item"><div class="item-label">예상수익률</div><b>+2.40%</b></div>
+                <div class="summary-item"><div class="item-label">실제수익률</div><b class="positive">+2.71%</b></div>
+                <div class="summary-item"><div class="item-label">차이</div><b class="positive">+0.31%p</b></div>
+                <div class="summary-item"><div class="item-label">기준가</div><b>18,450원</b></div>
+                <div class="summary-item"><div class="item-label">08:30 가격</div><b>18,950원</b></div>
               </div>
-              <p class="pnl positive">+2.71%</p>
-              <p class="muted">개선 메모: 직접 공시와 거래대금 동반 신호는 다음날 초반까지 유효했음</p>
+              <div class="sentence-panel prediction-note">
+                <div class="sentence-box decision">
+                  <div class="sentence-label">개선 메모</div>
+                  <p>직접 공시와 거래대금 동반 신호는 다음날 초반까지 유효했음</p>
+                </div>
+              </div>
             </article>
             
-            <article class="card prediction-card watch">
-              <div class="qual-head">
+            <article class="card position-card prediction-card watch">
+              <div class="position-head">
                 <div>
                   <div class="label-row">
                     <div class="label watch">관찰</div>
@@ -175,18 +199,26 @@ dl { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px 14px; 
                   </div>
                   <h3>넥스트바이오</h3>
                 </div>
-                <div class="confidence"><span>결과</span><b>예상 초과</b></div>
+                <div class="sell-plan"><span>예측 결과</span><b class="positive">예상 초과</b></div>
               </div>
-              <div class="expectation-line">
-                <b>예상 vs 08:30</b> +0.80% → +1.42%
-                <span>차이 +0.62%p · 기준가 63,200원 → 64,100원</span>
+              <div class="position-grid">
+                <div class="summary-item primary"><div class="item-label">판정</div><b>관찰</b></div>
+                <div class="summary-item"><div class="item-label">예상수익률</div><b>+0.80%</b></div>
+                <div class="summary-item"><div class="item-label">실제수익률</div><b class="positive">+1.42%</b></div>
+                <div class="summary-item"><div class="item-label">차이</div><b class="positive">+0.62%p</b></div>
+                <div class="summary-item"><div class="item-label">기준가</div><b>63,200원</b></div>
+                <div class="summary-item"><div class="item-label">08:30 가격</div><b>64,100원</b></div>
               </div>
-              <p class="pnl positive">+1.42%</p>
-              <p class="muted">개선 메모: 공식 공시 전 기대감도 거래대금이 크면 짧게 이어질 수 있음</p>
+              <div class="sentence-panel prediction-note">
+                <div class="sentence-box decision">
+                  <div class="sentence-label">개선 메모</div>
+                  <p>공식 공시 전 기대감도 거래대금이 크면 짧게 이어질 수 있음</p>
+                </div>
+              </div>
             </article>
             
-            <article class="card prediction-card exclude">
-              <div class="qual-head">
+            <article class="card position-card prediction-card exclude">
+              <div class="position-head">
                 <div>
                   <div class="label-row">
                     <div class="label exclude">제외</div>
@@ -194,14 +226,22 @@ dl { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px 14px; 
                   </div>
                   <h3>한강로보틱스</h3>
                 </div>
-                <div class="confidence"><span>결과</span><b>예상 부합</b></div>
+                <div class="sell-plan"><span>예측 결과</span><b class="neutral">예상 부합</b></div>
               </div>
-              <div class="expectation-line">
-                <b>예상 vs 08:30</b> -1.20% → -2.77%
-                <span>차이 -1.57%p · 기준가 27,100원 → 26,350원</span>
+              <div class="position-grid">
+                <div class="summary-item primary"><div class="item-label">판정</div><b>제외</b></div>
+                <div class="summary-item"><div class="item-label">예상수익률</div><b>-1.20%</b></div>
+                <div class="summary-item"><div class="item-label">실제수익률</div><b class="negative">-2.77%</b></div>
+                <div class="summary-item"><div class="item-label">차이</div><b class="negative">-1.57%p</b></div>
+                <div class="summary-item"><div class="item-label">기준가</div><b>27,100원</b></div>
+                <div class="summary-item"><div class="item-label">08:30 가격</div><b>26,350원</b></div>
               </div>
-              <p class="pnl negative">-2.77%</p>
-              <p class="muted">개선 메모: 간접 테마 상승은 다음날 차익실현 압력이 컸음</p>
+              <div class="sentence-panel prediction-note">
+                <div class="sentence-box decision">
+                  <div class="sentence-label">개선 메모</div>
+                  <p>간접 테마 상승은 다음날 차익실현 압력이 컸음</p>
+                </div>
+              </div>
             </article>
             </div>
 </section>
