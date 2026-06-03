@@ -41,27 +41,153 @@ dl { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px 14px; 
   <div class="subtitle">기준일 20260603</div>
   <div class="metrics">
     
-    <div class="metric"><span>전체 스캔</span><b>0종목</b></div>
-    <div class="metric"><span>정량 통과</span><b>0종목</b></div>
-    <div class="metric"><span>정성 라벨</span><b>BUY 0 / WATCH 0</b></div>
-    <div class="metric"><span>매수 결과</span><b>체결 0 / 부분 0</b></div>
+    <div class="metric"><span>전체 스캔</span><b>5종목</b></div>
+    <div class="metric"><span>정량 통과</span><b>3종목</b></div>
+    <div class="metric"><span>정성 라벨</span><b>BUY 1 / WATCH 1</b></div>
+    <div class="metric"><span>매수 결과</span><b>체결 1 / 부분 1</b></div>
         
   </div>
 </header>
 
 <section>
   <h2>1. 정량 평가 리스트</h2>
-  <div class="card-grid three"><p>정량 후보 없음</p></div>
+  <div class="card-grid three">
+            <article class="card quant-card">
+              <div class="rank">#1</div>
+              <h3>대한AI반도체 <span>123450</span></h3>
+              <div class="chips">
+                <span>KOSDAQ150</span>
+                <span>등락률 +12.30%</span>
+                <span>거래대금 상위 6.0%</span>
+              </div>
+              <dl>
+                <div><dt>현재가</dt><dd>18,450원</dd></div>
+                <div><dt>거래대금</dt><dd>84,200,000,000원</dd></div>
+                <div><dt>60일 거래대금 순위</dt><dd>18위</dd></div>
+                <div><dt>현재가/고가</dt><dd>0.971</dd></div>
+                <div><dt>거래량 배수</dt><dd>2.40배</dd></div>
+              </dl>
+            </article>
+            
+            <article class="card quant-card">
+              <div class="rank">#2</div>
+              <h3>넥스트바이오 <span>234560</span></h3>
+              <div class="chips">
+                <span>KOSPI200</span>
+                <span>등락률 +8.10%</span>
+                <span>거래대금 상위 4.0%</span>
+              </div>
+              <dl>
+                <div><dt>현재가</dt><dd>63,200원</dd></div>
+                <div><dt>거래대금</dt><dd>126,000,000,000원</dd></div>
+                <div><dt>60일 거래대금 순위</dt><dd>11위</dd></div>
+                <div><dt>현재가/고가</dt><dd>0.972</dd></div>
+                <div><dt>거래량 배수</dt><dd>1.80배</dd></div>
+              </dl>
+            </article>
+            
+            <article class="card quant-card">
+              <div class="rank">#3</div>
+              <h3>한강로보틱스 <span>345670</span></h3>
+              <div class="chips">
+                <span>KOSDAQ150</span>
+                <span>등락률 +7.45%</span>
+                <span>거래대금 상위 12.0%</span>
+              </div>
+              <dl>
+                <div><dt>현재가</dt><dd>27,100원</dd></div>
+                <div><dt>거래대금</dt><dd>58,500,000,000원</dd></div>
+                <div><dt>60일 거래대금 순위</dt><dd>29위</dd></div>
+                <div><dt>현재가/고가</dt><dd>0.947</dd></div>
+                <div><dt>거래량 배수</dt><dd>1.55배</dd></div>
+              </dl>
+            </article>
+            </div>
 </section>
 
 <section>
   <h2>2. 정성평가 결과</h2>
-  <div class="card-grid one-column"><p>정성평가 없음</p></div>
+  <div class="card-grid one-column">
+            <article class="card qual-card buy">
+              <div class="qual-head">
+                <div>
+                  <div class="label buy">매수 후보</div>
+                  <h3>대한AI반도체 <span>123450</span></h3>
+                </div>
+                <div class="confidence"><span>확신도</span><b>0.82</b></div>
+              </div>
+              <p class="reason">직접 계약 공시와 거래대금 유입이 함께 확인되어 BUY로 분류</p>
+              <div class="qual-tags">
+                <span>지속성 높음</span>
+                <span>직접성 직접</span>
+                <span>예상수익률 +2.40%</span>
+              </div>
+              <div class="expected-box"><span>예상 근거</span><p>계약 공시가 종목 직접 재료이고 거래대금이 동반돼 다음날 초반 관심이 이어질 가능성이 큼</p></div>
+              <div class="qual-detail-grid">
+                <div class="qual-box catalyst"><span>촉매</span><p>장중 AI 가속기 공급계약 공시</p></div>
+                <div class="qual-box risk"><span>위험</span><p>단기 급등에 따른 차익실현 가능성</p></div>
+              </div>
+            </article>
+            
+            <article class="card qual-card watch">
+              <div class="qual-head">
+                <div>
+                  <div class="label watch">관찰</div>
+                  <h3>넥스트바이오 <span>234560</span></h3>
+                </div>
+                <div class="confidence"><span>확신도</span><b>0.58</b></div>
+              </div>
+              <p class="reason">촉매는 있으나 확인 강도가 약해 WATCH로 보류</p>
+              <div class="qual-tags">
+                <span>지속성 보통</span>
+                <span>직접성 부분 직접</span>
+                <span>예상수익률 +0.80%</span>
+              </div>
+              <div class="expected-box"><span>예상 근거</span><p>재료는 크지만 공식 확인 전이라 기대감 소진 가능성이 있음</p></div>
+              <div class="qual-detail-grid">
+                <div class="qual-box catalyst"><span>촉매</span><p>임상 2상 중간결과 기대 보도</p></div>
+                <div class="qual-box risk"><span>위험</span><p>공식 공시 전 기대감 선반영 위험</p></div>
+              </div>
+            </article>
+            
+            <article class="card qual-card exclude">
+              <div class="qual-head">
+                <div>
+                  <div class="label exclude">제외</div>
+                  <h3>한강로보틱스 <span>345670</span></h3>
+                </div>
+                <div class="confidence"><span>확신도</span><b>0.35</b></div>
+              </div>
+              <p class="reason">단순 테마 동조 상승으로 판단해 EXCLUDE</p>
+              <div class="qual-tags">
+                <span>지속성 낮음</span>
+                <span>직접성 간접</span>
+                <span>예상수익률 -1.20%</span>
+              </div>
+              <div class="expected-box"><span>예상 근거</span><p>직접 촉매가 약해 다음날 초반 차익실현 가능성이 더 큼</p></div>
+              <div class="qual-detail-grid">
+                <div class="qual-box catalyst"><span>촉매</span><p>로봇 테마 순환매</p></div>
+                <div class="qual-box risk"><span>위험</span><p>테마 확산만 있고 종목 직접 재료 부족</p></div>
+              </div>
+            </article>
+            </div>
 </section>
 
 <section>
   <h2>3. 매수 주문/체결</h2>
-  <div class="card-grid"><p>매수 주문 없음</p></div>
+  <div class="card-grid">
+            <article class="mini-card">
+              <h3>매수 · 대한AI반도체 <span>123450</span></h3>
+              <p><b>27주</b> × 18,450원 = 498,150원</p>
+              <p class="muted">상태 FILLED · 주문시각 19:42:10</p>
+            </article>
+            
+            <article class="mini-card">
+              <h3>매수 · 넥스트바이오 <span>234560</span></h3>
+              <p><b>4주</b> × 63,200원 = 252,800원</p>
+              <p class="muted">상태 PARTIAL_FILLED · 주문시각 19:43:22</p>
+            </article>
+            </div>
 </section>
 
 <section>
@@ -69,15 +195,55 @@ dl { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px 14px; 
   <details>
     <summary>전체 정량 스캔 원자료 펼치기 / 접기</summary>
     <div class="scan-summary">
-      <span class="pill">통과 0</span>
-      <span class="pill">탈락 0</span>
+      <span class="pill">통과 3</span>
+      <span class="pill">탈락 2</span>
       <span class="pill">오류 0</span>
-      <span class="pill">없음</span>
+      <span class="pill">60일 거래대금 상위 30% 밖 1</span><span class="pill">등락률 7% 미만 1</span><span class="pill">고가 대비 종가 위치 부족 1</span>
     </div>
     <div class="table-wrap">
       <table>
         <thead><tr><th>코드</th><th>종목</th><th>지수</th><th>등락률</th><th>거래대금</th><th>60일 순위</th><th>60일 분위</th><th>현재/고가</th><th>거래량배수</th><th>상태</th><th>탈락 사유</th></tr></thead>
-        <tbody></tbody>
+        <tbody>
+            <tr class="pass">
+              <td>123450</td><td>대한AI반도체</td><td>KOSDAQ150</td>
+              <td>+12.30%</td><td>84,200,000,000</td>
+              <td>18</td><td>6.0%</td>
+              <td>0.971</td><td>2.40</td>
+              <td>통과</td><td>통과 기준 충족</td>
+            </tr>
+            
+            <tr class="pass">
+              <td>234560</td><td>넥스트바이오</td><td>KOSPI200</td>
+              <td>+8.10%</td><td>126,000,000,000</td>
+              <td>11</td><td>4.0%</td>
+              <td>0.972</td><td>1.80</td>
+              <td>통과</td><td>통과 기준 충족</td>
+            </tr>
+            
+            <tr class="pass">
+              <td>345670</td><td>한강로보틱스</td><td>KOSDAQ150</td>
+              <td>+7.45%</td><td>58,500,000,000</td>
+              <td>29</td><td>12.0%</td>
+              <td>0.947</td><td>1.55</td>
+              <td>통과</td><td>통과 기준 충족</td>
+            </tr>
+            
+            <tr class="fail">
+              <td>456780</td><td>미래전력</td><td>KOSPI200</td>
+              <td>+9.20%</td><td>31,500,000,000</td>
+              <td>105</td><td>43.0%</td>
+              <td>0.815</td><td>1.20</td>
+              <td>탈락</td><td>60일 거래대금 상위 30% 밖</td>
+            </tr>
+            
+            <tr class="fail">
+              <td>567890</td><td>세종엔터</td><td>KOSDAQ150</td>
+              <td>+6.80%</td><td>22,900,000,000</td>
+              <td>144</td><td>58.0%</td>
+              <td>0.727</td><td>3.10</td>
+              <td>탈락</td><td>등락률 7% 미만, 고가 대비 종가 위치 부족</td>
+            </tr>
+            </tbody>
       </table>
     </div>
   </details>
