@@ -41,37 +41,137 @@ dl { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px 14px; 
   <div class="subtitle">매도일 20260604</div>
   <div class="metrics">
     
-    <div class="metric"><span>매도 주문</span><b>0건</b></div>
-    <div class="metric"><span>주문 전송</span><b>0건</b></div>
-    <div class="metric"><span>정성예측 검증</span><b>0종목</b></div>
-    <div class="metric"><span>실현손익</span><b>0원 · +0.00%</b></div>
+    <div class="metric"><span>매도 주문</span><b>2건</b></div>
+    <div class="metric"><span>주문 전송</span><b>2건</b></div>
+    <div class="metric"><span>정성예측 검증</span><b>3종목</b></div>
+    <div class="metric"><span>실현손익</span><b>+14,110원 · +1.88%</b></div>
         
   </div>
 </header>
 
 <section>
   <h2>1. 아침 요약 / 회고 노트</h2>
-  <div class="note-box"><p class="muted">아직 작성된 하루 요약 노트가 없습니다.</p></div>
+  <div class="note-box"><h3>하루 요약</h3>
+<p>샘플 기준으로 2개 종목을 매도했고, 합산 실현손익은 +14,110원입니다.</p>
+<h3>회고 메모</h3>
+<p class="bullet">• 대한AI반도체는 직접 공시와 거래대금 동반 신호가 다음날 초반까지 이어졌습니다.</p>
+<p class="bullet">• 넥스트바이오는 WATCH였지만 거래대금이 커서 예상보다 강하게 버텼습니다.</p>
+<p class="bullet">• 한강로보틱스는 단순 테마 상승이라 EXCLUDE 판단이 맞았습니다.</p>
+<h3>개선 포인트</h3>
+<p class="bullet">• 직접 공시와 거래대금이 함께 붙은 BUY는 우선순위를 유지합니다.</p>
+<p class="bullet">• WATCH라도 60일 거래대금 상위권이면 소액 테스트 후보로 분리 검토합니다.</p></div>
 </section>
 
 <section>
   <h2>2. 매도 주문/체결</h2>
-  <div class="card-grid"><p>매도 주문 없음</p></div>
+  <div class="card-grid">
+            <article class="mini-card">
+              <h3>매도 · 대한AI반도체 <span>123450</span></h3>
+              <p><b>27주</b> · 주문시점 현재가 18,950원</p>
+              <p class="muted">상태 ORDER_SENT · 주문시각 08:30:18</p>
+            </article>
+            
+            <article class="mini-card">
+              <h3>매도 · 넥스트바이오 <span>234560</span></h3>
+              <p><b>4주</b> · 주문시점 현재가 64,100원</p>
+              <p class="muted">상태 ORDER_SENT · 주문시각 08:30:24</p>
+            </article>
+            </div>
 </section>
 
 <section>
   <h2>3. 정성예측 검증</h2>
   <div class="scan-summary">
-    <span class="pill">예상 부합 0</span>
-    <span class="pill">예상 초과 0</span>
+    <span class="pill">예상 부합 2</span>
+    <span class="pill">예상 초과 1</span>
     <span class="pill">예상 하회 0</span>
   </div>
-  <div class="card-grid"><p>정성예측 검증 없음</p></div>
+  <div class="card-grid">
+            <article class="card prediction-card buy">
+              <div class="qual-head">
+                <div>
+                  <div class="label buy">매수 후보</div>
+                  <h3>대한AI반도체 <span>123450</span></h3>
+                </div>
+                <div class="confidence"><span>결과</span><b>예상 부합</b></div>
+              </div>
+              <div class="expectation-line">
+                <b>예상 vs 08:30</b> +2.40% → +2.71%
+                <span>차이 +0.31%p · 기준가 18,450원 → 18,950원</span>
+              </div>
+              <p class="pnl positive">+2.71%</p>
+              <p class="muted">개선 메모: 직접 공시와 거래대금 동반 신호는 다음날 초반까지 유효했음</p>
+            </article>
+            
+            <article class="card prediction-card watch">
+              <div class="qual-head">
+                <div>
+                  <div class="label watch">관찰</div>
+                  <h3>넥스트바이오 <span>234560</span></h3>
+                </div>
+                <div class="confidence"><span>결과</span><b>예상 초과</b></div>
+              </div>
+              <div class="expectation-line">
+                <b>예상 vs 08:30</b> +0.80% → +1.42%
+                <span>차이 +0.62%p · 기준가 63,200원 → 64,100원</span>
+              </div>
+              <p class="pnl positive">+1.42%</p>
+              <p class="muted">개선 메모: 공식 공시 전 기대감도 거래대금이 크면 짧게 이어질 수 있음</p>
+            </article>
+            
+            <article class="card prediction-card exclude">
+              <div class="qual-head">
+                <div>
+                  <div class="label exclude">제외</div>
+                  <h3>한강로보틱스 <span>345670</span></h3>
+                </div>
+                <div class="confidence"><span>결과</span><b>예상 부합</b></div>
+              </div>
+              <div class="expectation-line">
+                <b>예상 vs 08:30</b> -1.20% → -2.77%
+                <span>차이 -1.57%p · 기준가 27,100원 → 26,350원</span>
+              </div>
+              <p class="pnl negative">-2.77%</p>
+              <p class="muted">개선 메모: 간접 테마 상승은 다음날 차익실현 압력이 컸음</p>
+            </article>
+            </div>
 </section>
 
 <section>
   <h2>4. 실제 손익/회고</h2>
-  <div class="card-grid"><p>회고 없음</p></div>
+  <div class="card-grid">
+            <article class="card review-card">
+              <h3>대한AI반도체 <span>123450</span></h3>
+              <div class="pnl positive">+11,510원 <span>+2.31%</span></div>
+              <div class="expectation-line">
+                <b>예상 vs 실제</b> +2.40% → +2.31%
+                <span>차이 -0.09%p · 예상 부합</span>
+              </div>
+              <p class="muted">예상 근거: 계약 공시가 종목 직접 재료이고 거래대금이 동반돼 다음날 초반 관심이 이어질 가능성이 큼</p>
+              <dl>
+                <div><dt>매수금액</dt><dd>498,150원</dd></div>
+                <div><dt>매도금액</dt><dd>511,650원</dd></div>
+                <div><dt>수수료</dt><dd>820원</dd></div>
+                <div><dt>제세금</dt><dd>1,170원</dd></div>
+              </dl>
+            </article>
+            
+            <article class="card review-card">
+              <h3>넥스트바이오 <span>234560</span></h3>
+              <div class="pnl positive">+2,600원 <span>+1.03%</span></div>
+              <div class="expectation-line">
+                <b>예상 vs 실제</b> +0.80% → +1.03%
+                <span>차이 +0.23%p · 예상 초과</span>
+              </div>
+              <p class="muted">예상 근거: 재료는 크지만 공식 확인 전이라 기대감 소진 가능성이 있음</p>
+              <dl>
+                <div><dt>매수금액</dt><dd>252,800원</dd></div>
+                <div><dt>매도금액</dt><dd>256,400원</dd></div>
+                <div><dt>수수료</dt><dd>410원</dd></div>
+                <div><dt>제세금</dt><dd>590원</dd></div>
+              </dl>
+            </article>
+            </div>
 </section>
         
 </div></body></html>
