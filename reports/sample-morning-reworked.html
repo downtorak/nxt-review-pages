@@ -53,9 +53,12 @@ dl { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px 14px; 
 .status-strip { display:flex; flex-wrap:wrap; gap:8px; margin:0 0 14px; }
 .status-pill { display:inline-block; border:1px solid var(--line); border-radius:999px; padding:5px 10px; background:#fffaf3; color:#5f5349; font-size:12px; font-weight:800; }
 .status-pill.filled, .status-badge.filled { color:var(--green); background:#f4faf6; border-color:#cfe0d6; }
+.status-pill.sent, .status-badge.sent { color:var(--blue); background:#f2f7fb; border-color:#cad9e5; }
 .status-pill.partial, .status-badge.partial { color:var(--amber); background:#fbf7ed; border-color:#e4d7b8; }
 .status-pill.unfilled, .status-badge.unfilled { color:#6f6258; background:#f5efe8; border-color:#e2d7cb; }
+.status-pill.dry, .status-badge.dry, .status-pill.skip, .status-badge.skip { color:#6f6258; background:#f5efe8; border-color:#e2d7cb; }
 .status-pill.pending, .status-badge.pending, .status-pill.error, .status-badge.error { color:var(--red); background:#fbf2ef; border-color:#e5cfc9; }
+.state-filled { color:var(--green); } .state-pending { color:var(--red); }
 .position-card { overflow:visible; box-shadow:0 8px 22px rgba(80,50,30,.04); }
 .position-card.pending, .position-card.error { border-color:#e5cfc9; }
 .position-head { display:flex; justify-content:space-between; gap:14px; align-items:flex-start; margin-bottom:12px; }
@@ -87,8 +90,9 @@ dl { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px 14px; 
   <div class="subtitle">매도일 20260604</div>
   <div class="metrics">
     
-    <div class="metric"><span>매도 주문</span><b>2건</b></div>
+    <div class="metric"><span>매도 대상</span><b>2종목</b></div>
     <div class="metric"><span>주문 전송</span><b>2건</b></div>
+    <div class="metric"><span>손익 반영</span><b>2종목</b></div>
     <div class="metric"><span>실현손익</span><b>+14,110원 · +1.88%</b></div>
         
   </div>
@@ -133,17 +137,70 @@ dl { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px 14px; 
 
 <section>
   <h2>2. 매도 주문/체결</h2>
+  
+  <div class="position-summary">
+    <div class="summary-item primary"><div class="item-label">매도 대상</div><b>2종목</b></div>
+    <div class="summary-item"><div class="item-label">주문 전송</div><b>2건</b></div>
+    <div class="summary-item"><div class="item-label">손익 반영</div><b>2종목</b></div>
+    <div class="summary-item"><div class="item-label">확인 필요</div><b>0건</b></div>
+  </div>
+  <div class="status-strip"><span class="status-pill sent">주문전송 2</span><span class="status-pill partial">부분체결 0</span><span class="status-pill dry">모의주문 0</span><span class="status-pill skip">스킵 0</span><span class="status-pill error">오류 0</span></div>
+        
   <div class="card-grid">
-            <article class="mini-card">
-              <h3>매도 · 대한AI반도체 <span>123450</span></h3>
-              <p><b>27주</b> · 주문시점 현재가 18,950원</p>
-              <p class="muted">상태 ORDER_SENT · 주문시각 08:30:18</p>
+            <article class="card position-card sent">
+              <div class="position-head">
+                <div>
+                  <div class="status-badge sent">주문전송</div>
+                  <h3>대한AI반도체 <span>123450</span></h3>
+                </div>
+                <div class="sell-plan"><span>회고 연결</span><b>손익 반영</b></div>
+              </div>
+              <div class="position-grid">
+                <div class="summary-item primary"><div class="item-label">매도수량</div><b>27주</b></div>
+                <div class="summary-item"><div class="item-label">주문 기준가</div><b>18,950원</b></div>
+                <div class="summary-item"><div class="item-label">주문 기준금액</div><b>511,650원</b></div>
+                <div class="summary-item"><div class="item-label">시장/방식</div><b>NXT · best-limit</b></div>
+                <div class="summary-item"><div class="item-label">주문시각</div><b>08:30:18</b></div>
+                <div class="summary-item"><div class="item-label">검토 상태</div><b class="state-filled">손익 반영</b></div>
+              </div>
+              <details class="order-flow">
+                <summary>매도 흐름 보기</summary>
+                <dl>
+                  <div><dt>주문시점 현재가</dt><dd>18,950원</dd></div>
+                  <div><dt>매수 기준일</dt><dd>20260603</dd></div>
+                  <div><dt>원본 상태</dt><dd>ORDER_SENT</dd></div>
+                  <div><dt>모의 여부</dt><dd>False</dd></div>
+                </dl>
+                <p class="muted">sell order sent</p>
+              </details>
             </article>
             
-            <article class="mini-card">
-              <h3>매도 · 넥스트바이오 <span>234560</span></h3>
-              <p><b>4주</b> · 주문시점 현재가 64,100원</p>
-              <p class="muted">상태 ORDER_SENT · 주문시각 08:30:24</p>
+            <article class="card position-card sent">
+              <div class="position-head">
+                <div>
+                  <div class="status-badge sent">주문전송</div>
+                  <h3>넥스트바이오 <span>234560</span></h3>
+                </div>
+                <div class="sell-plan"><span>회고 연결</span><b>손익 반영</b></div>
+              </div>
+              <div class="position-grid">
+                <div class="summary-item primary"><div class="item-label">매도수량</div><b>4주</b></div>
+                <div class="summary-item"><div class="item-label">주문 기준가</div><b>64,100원</b></div>
+                <div class="summary-item"><div class="item-label">주문 기준금액</div><b>256,400원</b></div>
+                <div class="summary-item"><div class="item-label">시장/방식</div><b>NXT · best-limit</b></div>
+                <div class="summary-item"><div class="item-label">주문시각</div><b>08:30:24</b></div>
+                <div class="summary-item"><div class="item-label">검토 상태</div><b class="state-filled">손익 반영</b></div>
+              </div>
+              <details class="order-flow">
+                <summary>매도 흐름 보기</summary>
+                <dl>
+                  <div><dt>주문시점 현재가</dt><dd>64,100원</dd></div>
+                  <div><dt>매수 기준일</dt><dd>20260603</dd></div>
+                  <div><dt>원본 상태</dt><dd>ORDER_SENT</dd></div>
+                  <div><dt>모의 여부</dt><dd>False</dd></div>
+                </dl>
+                <p class="muted">sell order sent</p>
+              </details>
             </article>
             </div>
 </section>
