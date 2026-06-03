@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NXT 아침 매도/회고 리포트 20260604</title>
+<style>
+:root { --bg:#f6f1ea; --paper:#fffaf3; --card:#ffffff; --ink:#24201c; --muted:#776c61; --line:#eaded1; --accent:#a95a48; --green:#2f6f58; --red:#9e3f38; --amber:#8b6a2e; --blue:#3e6385; --teal:#3f766d; }
+* { box-sizing:border-box; } body { margin:0; background:var(--bg); color:var(--ink); font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; line-height:1.55; }
+.container { max-width:1180px; margin:0 auto; padding:32px 18px 72px; }
+.hero { border:1px solid var(--line); border-radius:28px; padding:28px; background:linear-gradient(135deg,#fffaf3,#f1dfd0); box-shadow:0 10px 30px rgba(80,50,30,.06); }
+h1 { margin:0; font-size:32px; } .subtitle { margin-top:8px; color:var(--muted); }
+.metrics { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; margin-top:20px; }
+.metric { background:rgba(255,255,255,.72); border:1px solid var(--line); border-radius:18px; padding:14px; } .metric span { display:block; color:var(--muted); font-size:13px; } .metric b { font-size:22px; }
+section { margin-top:24px; padding:22px; border:1px solid var(--line); border-radius:24px; background:var(--paper); }
+h2 { margin:0 0 14px; font-size:22px; } h3 { margin:0 0 8px; } h3 span { color:var(--muted); font-size:13px; font-weight:500; }
+.card-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; } .card-grid.three { grid-template-columns:repeat(3,minmax(0,1fr)); } .card-grid.one-column { grid-template-columns:1fr; }
+.card, .mini-card { background:var(--card); border:1px solid var(--line); border-radius:20px; padding:16px; position:relative; }
+.rank { position:absolute; right:14px; top:12px; color:var(--muted); font-weight:700; }
+.chips { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0; } .chips span, .pill { display:inline-block; border-radius:999px; padding:4px 9px; background:#f3ebe2; color:#5f5349; font-size:12px; }
+dl { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px 14px; margin:12px 0 0; } dt { color:var(--muted); font-size:12px; } dd { margin:0; font-weight:700; }
+.label-row { display:flex; align-items:center; gap:8px; margin-bottom:8px; } .label-row > span { color:var(--muted); font-size:12px; font-weight:700; }
+.label { display:inline-block; padding:4px 10px; border:1px solid #e1d4c7; border-radius:999px; background:#fbf6ef; color:#5f5349; font-size:12px; font-weight:800; } .label.buy { color:var(--green); background:#f4faf6; border-color:#cfe0d6; } .label.watch { color:var(--amber); background:#fbf7ed; border-color:#e4d7b8; } .label.exclude { color:var(--red); background:#fbf2ef; border-color:#e5cfc9; }
+.qual-card { padding:0; overflow:visible; border-left:1px solid var(--line); box-shadow:0 8px 24px rgba(80,50,30,.05); }
+.qual-head { display:flex; justify-content:space-between; gap:14px; align-items:flex-start; padding:18px 18px 12px; background:linear-gradient(180deg,#fffdf9,#fff8ef); border-bottom:1px solid var(--line); } .qual-head h3 { margin-bottom:0; font-size:21px; }
+.confidence { min-width:86px; text-align:right; padding:8px 10px; border-radius:14px; background:#fff; border:1px solid var(--line); } .confidence span { display:block; color:var(--muted); font-size:12px; } .confidence b { font-size:22px; }
+.summary-panel, .sentence-panel { margin:16px 18px; }
+.panel-title { margin-bottom:8px; color:var(--accent); font-size:12px; font-weight:900; letter-spacing:.04em; }
+.summary-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:8px; }
+.summary-grid.qualitative-grid { grid-template-columns:repeat(3,minmax(0,1fr)); }
+.summary-item { border:1px solid var(--line); border-radius:14px; padding:10px 11px; background:#fffdf9; color:var(--muted); font-size:12px; }
+.summary-item.primary { background:#f7fff9; border-color:#cfe8db; }
+.item-label { color:var(--muted); font-size:12px; line-height:1.2; }
+.summary-item b { display:block; color:var(--ink); font-size:16px; line-height:1.25; margin-top:2px; }
+.hint-wrap { position:relative; display:inline-block; max-width:100%; border-bottom:1px dotted #a99583; cursor:help; text-decoration:none; }
+.hint-text { position:absolute; left:0; top:calc(100% + 6px); z-index:20; width:min(240px,76vw); padding:9px 10px; border:1px solid #dccdbd; border-radius:12px; background:#24201c; color:#fffaf3; box-shadow:0 10px 24px rgba(36,32,28,.18); font-size:12px; font-weight:500; line-height:1.45; white-space:normal; opacity:0; visibility:hidden; transform:translateY(-2px); transition:opacity .12s ease, transform .12s ease, visibility .12s ease; pointer-events:none; }
+.hint-wrap:hover .hint-text { opacity:1; visibility:visible; transform:translateY(0); }
+.sentence-panel { margin-top:0; padding:14px; border:1px solid var(--line); border-radius:18px; background:#fffdf9; }
+.sentence-stack { display:grid; gap:10px; }
+.sentence-box { border-left:3px solid #dfcab6; padding-left:12px; }
+.sentence-label { display:block; margin-bottom:4px; color:var(--accent); font-size:12px; font-weight:900; letter-spacing:.03em; }
+.sentence-box p { margin:0; }
+.sentence-box.decision { border-left-color:var(--blue); }
+.sentence-box.decision .sentence-label { color:var(--blue); }
+.sentence-box.decision p { font-weight:800; }
+.sentence-box.catalyst { border-left-color:var(--teal); }
+.sentence-box.catalyst .sentence-label { color:var(--teal); }
+.sentence-box.risk { border-left-color:#d49a91; }
+.sentence-box.risk .sentence-label { color:var(--red); }
+.sentence-box.evidence { border-left-color:#caa565; }
+.sentence-box.evidence .sentence-label { color:var(--amber); }
+.position-summary { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:8px; margin-bottom:10px; }
+.status-strip { display:flex; flex-wrap:wrap; gap:8px; margin:0 0 14px; }
+.status-pill { display:inline-block; border:1px solid var(--line); border-radius:999px; padding:5px 10px; background:#fffaf3; color:#5f5349; font-size:12px; font-weight:800; }
+.status-pill.filled, .status-badge.filled { color:var(--green); background:#f4faf6; border-color:#cfe0d6; }
+.status-pill.partial, .status-badge.partial { color:var(--amber); background:#fbf7ed; border-color:#e4d7b8; }
+.status-pill.unfilled, .status-badge.unfilled { color:#6f6258; background:#f5efe8; border-color:#e2d7cb; }
+.status-pill.pending, .status-badge.pending, .status-pill.error, .status-badge.error { color:var(--red); background:#fbf2ef; border-color:#e5cfc9; }
+.position-card { overflow:visible; box-shadow:0 8px 22px rgba(80,50,30,.04); }
+.position-card.pending, .position-card.error { border-color:#e5cfc9; }
+.position-head { display:flex; justify-content:space-between; gap:14px; align-items:flex-start; margin-bottom:12px; }
+.status-badge { display:inline-block; margin-bottom:8px; border:1px solid var(--line); border-radius:999px; padding:4px 10px; background:#fbf6ef; color:#5f5349; font-size:12px; font-weight:900; }
+.sell-plan { min-width:118px; text-align:right; padding:8px 10px; border:1px solid var(--line); border-radius:14px; background:#fffdf9; }
+.sell-plan span { display:block; color:var(--muted); font-size:12px; }
+.sell-plan b { display:block; font-size:15px; }
+.position-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; }
+.order-flow { margin-top:12px; border-top:1px solid var(--line); padding-top:10px; }
+.order-flow summary { cursor:pointer; color:var(--muted); font-size:13px; font-weight:800; }
+.order-flow dl { grid-template-columns:repeat(2,minmax(0,1fr)); }
+.pnl { font-size:28px; font-weight:900; margin:8px 0; } .pnl span { font-size:16px; } .positive { color:var(--green); } .negative { color:var(--red); } .expectation-line { border:1px solid var(--line); border-radius:16px; padding:12px 14px; background:#fff7ed; font-weight:700; } .expectation-line span { display:block; margin-top:4px; color:var(--muted); font-size:13px; }
+.note-box { background:#fff; border:1px solid var(--line); border-radius:18px; padding:18px; } .review-note { margin-top:14px; } .note-box h3 { margin-top:18px; color:var(--accent); } .note-box h3:first-child { margin-top:0; } .bullet { margin:4px 0; }
+.scan-summary { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:12px; }
+.table-wrap { max-height:520px; overflow:auto; border:1px solid var(--line); border-radius:14px; background:white; } table { width:100%; border-collapse:collapse; font-size:13px; } th,td { border-bottom:1px solid #efe5da; padding:8px 9px; text-align:left; white-space:nowrap; } th { position:sticky; top:0; background:#f5ece3; z-index:1; } tr.pass td { background:#f7fff9; } tr.error td { background:#fff1ef; }
+.muted { color:var(--muted); } .note { color:var(--muted); font-size:13px; margin-top:10px; }
+@media (max-width:900px) { .metrics, .card-grid, .card-grid.three { grid-template-columns:1fr; } dl { grid-template-columns:1fr; } .qual-head, .position-head { flex-direction:column; } .confidence, .sell-plan { text-align:left; } .position-summary { grid-template-columns:repeat(2,minmax(0,1fr)); } .position-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } .quant-grid { grid-template-columns:repeat(4,minmax(0,1fr)); } .qualitative-grid { grid-template-columns:repeat(3,minmax(0,1fr)); } .summary-item { padding:9px 7px; } .summary-item b { font-size:clamp(11px,3.2vw,16px); white-space:nowrap; } .item-label { font-size:clamp(9px,2.8vw,12px); white-space:nowrap; } }
+@media (max-width:360px) { .summary-grid { gap:6px; } .summary-item { padding:8px 5px; } .summary-item b { font-size:11px; } .item-label { font-size:9px; } }
+</style>
+</head>
+<body><div class="container">
+<header class="hero">
+  <h1>🌸 NXT 아침 매도/회고 리포트</h1>
+  <div class="subtitle">매도일 20260604</div>
+  <div class="metrics">
+    
+    <div class="metric"><span>매도 주문</span><b>2건</b></div>
+    <div class="metric"><span>주문 전송</span><b>2건</b></div>
+    <div class="metric"><span>예측 결과</span><b>부합 2 / 초과 1 / 하회 0</b></div>
+    <div class="metric"><span>실현손익</span><b>+14,110원 · +1.88%</b></div>
+        
+  </div>
+</header>
+
+<section>
+  <h2>1. 실제 손익/회고</h2>
+  <div class="card-grid">
+            <article class="card review-card">
+              <h3>대한AI반도체 <span>123450</span></h3>
+              <div class="pnl positive">+11,510원 <span>+2.31%</span></div>
+              <div class="expectation-line">
+                <b>예상 vs 실제</b> +2.40% → +2.31%
+                <span>차이 -0.09%p · 예상 부합</span>
+              </div>
+              <p class="muted">예상 근거: 계약 공시가 종목 직접 재료이고 거래대금이 동반돼 다음날 초반 관심이 이어질 가능성이 큼</p>
+              <dl>
+                <div><dt>매수금액</dt><dd>498,150원</dd></div>
+                <div><dt>매도금액</dt><dd>511,650원</dd></div>
+                <div><dt>수수료</dt><dd>820원</dd></div>
+                <div><dt>제세금</dt><dd>1,170원</dd></div>
+              </dl>
+            </article>
+            
+            <article class="card review-card">
+              <h3>넥스트바이오 <span>234560</span></h3>
+              <div class="pnl positive">+2,600원 <span>+1.03%</span></div>
+              <div class="expectation-line">
+                <b>예상 vs 실제</b> +0.80% → +1.03%
+                <span>차이 +0.23%p · 예상 초과</span>
+              </div>
+              <p class="muted">예상 근거: 재료는 크지만 공식 확인 전이라 기대감 소진 가능성이 있음</p>
+              <dl>
+                <div><dt>매수금액</dt><dd>252,800원</dd></div>
+                <div><dt>매도금액</dt><dd>256,400원</dd></div>
+                <div><dt>수수료</dt><dd>410원</dd></div>
+                <div><dt>제세금</dt><dd>590원</dd></div>
+              </dl>
+            </article>
+            </div>
+  <div class="note-box review-note">
+    <h3>회고 메모</h3>
+    <p class="bullet">• 대한AI반도체는 직접 공시와 거래대금 동반 신호가 다음날 초반까지 이어졌습니다.</p>
+<p class="bullet">• 넥스트바이오는 WATCH였지만 거래대금이 커서 예상보다 강하게 버텼습니다.</p>
+<p class="bullet">• 한강로보틱스는 단순 테마 상승이라 EXCLUDE 판단이 맞았습니다.</p>
+  </div>
+</section>
+
+<section>
+  <h2>2. 매도 주문/체결</h2>
+  <div class="card-grid">
+            <article class="mini-card">
+              <h3>매도 · 대한AI반도체 <span>123450</span></h3>
+              <p><b>27주</b> · 주문시점 현재가 18,950원</p>
+              <p class="muted">상태 ORDER_SENT · 주문시각 08:30:18</p>
+            </article>
+            
+            <article class="mini-card">
+              <h3>매도 · 넥스트바이오 <span>234560</span></h3>
+              <p><b>4주</b> · 주문시점 현재가 64,100원</p>
+              <p class="muted">상태 ORDER_SENT · 주문시각 08:30:24</p>
+            </article>
+            </div>
+</section>
+
+<section>
+  <h2>3. 정성예측 검증</h2>
+  <div class="scan-summary">
+    <span class="pill">예상 부합 2</span>
+    <span class="pill">예상 초과 1</span>
+    <span class="pill">예상 하회 0</span>
+  </div>
+  <div class="card-grid">
+            <article class="card prediction-card buy">
+              <div class="qual-head">
+                <div>
+                  <div class="label buy">매수</div>
+                  <h3>대한AI반도체 <span>123450</span></h3>
+                </div>
+                <div class="confidence"><span>결과</span><b>예상 부합</b></div>
+              </div>
+              <div class="expectation-line">
+                <b>예상 vs 08:30</b> +2.40% → +2.71%
+                <span>차이 +0.31%p · 기준가 18,450원 → 18,950원</span>
+              </div>
+              <p class="pnl positive">+2.71%</p>
+              <p class="muted">개선 메모: 직접 공시와 거래대금 동반 신호는 다음날 초반까지 유효했음</p>
+            </article>
+            
+            <article class="card prediction-card watch">
+              <div class="qual-head">
+                <div>
+                  <div class="label watch">관찰</div>
+                  <h3>넥스트바이오 <span>234560</span></h3>
+                </div>
+                <div class="confidence"><span>결과</span><b>예상 초과</b></div>
+              </div>
+              <div class="expectation-line">
+                <b>예상 vs 08:30</b> +0.80% → +1.42%
+                <span>차이 +0.62%p · 기준가 63,200원 → 64,100원</span>
+              </div>
+              <p class="pnl positive">+1.42%</p>
+              <p class="muted">개선 메모: 공식 공시 전 기대감도 거래대금이 크면 짧게 이어질 수 있음</p>
+            </article>
+            
+            <article class="card prediction-card exclude">
+              <div class="qual-head">
+                <div>
+                  <div class="label exclude">제외</div>
+                  <h3>한강로보틱스 <span>345670</span></h3>
+                </div>
+                <div class="confidence"><span>결과</span><b>예상 부합</b></div>
+              </div>
+              <div class="expectation-line">
+                <b>예상 vs 08:30</b> -1.20% → -2.77%
+                <span>차이 -1.57%p · 기준가 27,100원 → 26,350원</span>
+              </div>
+              <p class="pnl negative">-2.77%</p>
+              <p class="muted">개선 메모: 간접 테마 상승은 다음날 차익실현 압력이 컸음</p>
+            </article>
+            </div>
+</section>
+
+<section>
+  <h2>4. 개선 포인트</h2>
+  <div class="note-box"><p class="bullet">• 직접 공시와 거래대금이 함께 붙은 BUY는 우선순위를 유지합니다.</p>
+<p class="bullet">• WATCH라도 60일 거래대금 상위권이면 소액 테스트 후보로 분리 검토합니다.</p></div>
+</section>
+        
+</div></body></html>
