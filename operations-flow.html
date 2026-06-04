@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NXT 자동매매 운영 플로우</title>
+<style>
+:root {
+  color-scheme: light;
+  --bg: #f5f2ec;
+  --panel: #fffdf8;
+  --ink: #25211d;
+  --muted: #6f665f;
+  --line: #ded4c7;
+  --accent: #9b4f43;
+  --accent-soft: #f1dfd8;
+  --green: #276b4d;
+  --blue: #2f5f89;
+  --amber: #7b5a16;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  line-height: 1.55;
+}
+main {
+  width: min(1120px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 34px 0 56px;
+}
+a { color: var(--accent); font-weight: 700; }
+.top {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: flex-start;
+  margin-bottom: 22px;
+}
+.eyebrow {
+  color: var(--accent);
+  font-weight: 800;
+  font-size: 13px;
+  letter-spacing: 0;
+  margin: 0 0 6px;
+}
+h1 {
+  margin: 0;
+  font-size: clamp(28px, 4vw, 44px);
+  line-height: 1.12;
+  letter-spacing: 0;
+}
+.lead {
+  margin: 12px 0 0;
+  max-width: 780px;
+  color: var(--muted);
+  font-size: 16px;
+}
+.back {
+  white-space: nowrap;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+  padding: 9px 12px;
+  text-decoration: none;
+}
+.section {
+  margin-top: 18px;
+  padding: 22px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+h2 {
+  margin: 0 0 14px;
+  font-size: 22px;
+  letter-spacing: 0;
+}
+h3 {
+  margin: 0 0 8px;
+  font-size: 17px;
+  letter-spacing: 0;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+.flow {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(130px, 1fr));
+  gap: 10px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+.step {
+  min-height: 128px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+  padding: 14px;
+  position: relative;
+}
+.step::after {
+  content: "→";
+  position: absolute;
+  top: 48%;
+  right: -12px;
+  color: var(--muted);
+  font-weight: 800;
+}
+.step:last-child::after { content: ""; }
+.num {
+  display: inline-grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+.step p, .card p, .note p { margin: 0; color: var(--muted); }
+.tag {
+  display: inline-block;
+  margin: 2px 4px 2px 0;
+  padding: 3px 7px;
+  border-radius: 999px;
+  background: #f0ece5;
+  color: #4d4741;
+  font-size: 12px;
+  font-weight: 700;
+}
+.tag.buy { background: #e4f0e9; color: var(--green); }
+.tag.sell { background: #e7eef6; color: var(--blue); }
+.tag.review { background: #f4ecd7; color: var(--amber); }
+.files {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+.card {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+  padding: 14px;
+}
+.file {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 13px;
+  overflow-wrap: anywhere;
+  color: #181512;
+}
+.timeline {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+.note {
+  border-left: 4px solid var(--accent);
+  background: #fff;
+  border-radius: 8px;
+  padding: 14px 16px;
+}
+.danger { border-left-color: #b63c32; }
+.ok { border-left-color: var(--green); }
+ul {
+  margin: 8px 0 0;
+  padding-left: 18px;
+  color: var(--muted);
+}
+li { margin: 6px 0; }
+@media (max-width: 860px) {
+  main { width: min(100% - 20px, 1120px); padding-top: 22px; }
+  .top, .grid, .timeline, .files { grid-template-columns: 1fr; display: grid; }
+  .top { gap: 12px; }
+  .back { white-space: normal; width: fit-content; }
+  .section { padding: 16px; }
+}
+</style>
+</head>
+<body>
+<main>
+  <div class="top">
+    <div>
+      <p class="eyebrow">NXT OVERNIGHT AUTO TRADE</p>
+      <h1>NXT 자동매매 운영 플로우</h1>
+      <p class="lead">저녁 매수와 아침 매도가 어떤 순서로 움직이고, 그 과정에서 생성되는 파일이 무엇을 담고 어디에 쓰이는지 한눈에 보는 운영 지도입니다.</p>
+    </div>
+    <a class="back" href="index.html">리포트 목록으로</a>
+  </div>
+
+  <section class="section">
+    <h2>하루 흐름</h2>
+    <div class="timeline">
+      <div class="note ok">
+        <h3>저녁 19:30 매수 workflow</h3>
+        <p>NXT 장 종료 뒤 후보를 뽑고, 정성 평가를 거쳐 실제 매수 주문을 시도합니다.</p>
+        <span class="tag buy">정량 스캔</span>
+        <span class="tag buy">정성 평가</span>
+        <span class="tag buy">매수 주문</span>
+        <span class="tag review">저녁 리포트</span>
+      </div>
+      <div class="note">
+        <h3>아침 08:30 매도 workflow</h3>
+        <p>전날 실제 체결된 종목만 대상으로 매도하고, 정성 예측과 손익을 회고합니다.</p>
+        <span class="tag sell">예측 검증</span>
+        <span class="tag sell">매도 주문</span>
+        <span class="tag review">손익 회고</span>
+        <span class="tag review">아침 리포트</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>저녁 매수 cron 순서</h2>
+    <div class="flow">
+      <div class="step">
+        <div class="num">1</div>
+        <h3>정량 스캔</h3>
+        <p>시장 데이터를 기준으로 NXT 후보 전체와 조건 통과 후보를 만듭니다.</p>
+      </div>
+      <div class="step">
+        <div class="num">2</div>
+        <h3>정성 평가</h3>
+        <p>뉴스, 재료, 지속성, 리스크를 보고 BUY/WATCH/EXCLUDE를 붙입니다.</p>
+      </div>
+      <div class="step">
+        <div class="num">3</div>
+        <h3>최종 후보</h3>
+        <p>BUY 후보를 우선순위 큐로 정리합니다. 큐는 보유 확정이 아닙니다.</p>
+      </div>
+      <div class="step">
+        <div class="num">4</div>
+        <h3>매수 주문</h3>
+        <p>실제 주문을 시도하고 FILLED/PARTIAL/UNFILLED 상태를 기록합니다.</p>
+      </div>
+      <div class="step">
+        <div class="num">5</div>
+        <h3>저녁 리포트</h3>
+        <p>후보, 평가, 주문 결과를 HTML로 만들고 Pages에 올립니다.</p>
+      </div>
+      <div class="step">
+        <div class="num">6</div>
+        <h3>텔레그램 요약</h3>
+        <p>성공/스킵/주의사항을 짧게 보고합니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>아침 매도 cron 순서</h2>
+    <div class="flow">
+      <div class="step">
+        <div class="num">1</div>
+        <h3>예측 검증</h3>
+        <p>전날 정성 평가가 다음날 시세와 맞았는지 검토합니다.</p>
+      </div>
+      <div class="step">
+        <div class="num">2</div>
+        <h3>매수 기록 확인</h3>
+        <p>전날 buy CSV에서 FILLED/PARTIAL_FILLED만 매도 대상으로 고릅니다.</p>
+      </div>
+      <div class="step">
+        <div class="num">3</div>
+        <h3>매도 주문</h3>
+        <p>NXT 최유리지정가 매도를 기본으로 주문합니다.</p>
+      </div>
+      <div class="step">
+        <div class="num">4</div>
+        <h3>손익 산출</h3>
+        <p>KIS 체결 내역 기준으로 실현 손익을 계산합니다.</p>
+      </div>
+      <div class="step">
+        <div class="num">5</div>
+        <h3>회고 기록</h3>
+        <p>일별 회고와 누적 전략 로그를 남깁니다.</p>
+      </div>
+      <div class="step">
+        <div class="num">6</div>
+        <h3>아침 리포트</h3>
+        <p>매도 결과, 예측 검증, 손익, 누적 성과를 HTML로 발행합니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>출력 파일 역할</h2>
+    <div class="files">
+      <div class="card">
+        <h3>후보와 평가</h3>
+        <p class="file">live_nxt_candidates_YYYYMMDD.csv</p>
+        <p>NXT 조건을 통과한 실전 후보 목록입니다.</p>
+        <p class="file">quant_scan_all_YYYYMMDD.csv</p>
+        <p>정량 스캔 전체 결과입니다. 리포트의 전체 후보 표에 쓰입니다.</p>
+        <p class="file">qualitative_labels_YYYYMMDD.csv</p>
+        <p>정성 평가 라벨과 판단 근거입니다.</p>
+      </div>
+      <div class="card">
+        <h3>매수 실행</h3>
+        <p class="file">final_buy_candidates_YYYYMMDD.csv</p>
+        <p>실제 매수 시도 순서입니다. 보유 확정 목록은 아닙니다.</p>
+        <p class="file">auto_buy_orders_YYYYMMDD.csv</p>
+        <p>매수 주문 결과입니다. 다음날 매도 대상 판단의 원천입니다.</p>
+      </div>
+      <div class="card">
+        <h3>매도와 손익</h3>
+        <p class="file">qualitative_prediction_review_YYYYMMDD.csv</p>
+        <p>전날 정성 판단이 다음날 움직임과 맞았는지 검증합니다.</p>
+        <p class="file">auto_sell_orders_YYYYMMDD.csv</p>
+        <p>아침 매도 주문 결과입니다.</p>
+        <p class="file">nxt_trade_review_YYYYMMDD.csv</p>
+        <p>KIS 체결 기준 실현 손익 리뷰입니다.</p>
+      </div>
+      <div class="card">
+        <h3>누적 로그</h3>
+        <p class="file">qualitative_prediction_review_log.csv</p>
+        <p>정성 예측 검증 누적 기록입니다.</p>
+        <p class="file">nxt_strategy_review_log.csv</p>
+        <p>일별 전략 회고 누적 기록입니다.</p>
+        <p class="file">nxt_strategy_performance_log.csv</p>
+        <p>전략 성과 누적 기록입니다.</p>
+      </div>
+      <div class="card">
+        <h3>회고와 리포트</h3>
+        <p class="file">daily_review_note_YYYYMMDD.md</p>
+        <p>그날의 짧은 운용 회고입니다.</p>
+        <p class="file">nxt_evening_buy_report_YYYYMMDD.html</p>
+        <p>저녁 매수 상세 리포트입니다.</p>
+        <p class="file">nxt_morning_sell_report_YYYYMMDD.html</p>
+        <p>아침 매도/회고 상세 리포트입니다.</p>
+      </div>
+      <div class="card">
+        <h3>샘플</h3>
+        <p class="file">outputs/report_examples/*</p>
+        <p>리포트 디자인과 구조 확인용 샘플입니다. 실제 운용 데이터가 아닙니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>중요한 안전 규칙</h2>
+    <div class="grid">
+      <div class="note danger">
+        <h3>프롬프트 수정</h3>
+        <p><code>prompts/*.md</code>는 참고 원본입니다. 실제 OpenClaw cron payload도 같이 갱신해야 실행 동작이 바뀝니다.</p>
+      </div>
+      <div class="note danger">
+        <h3>실제 주문 플래그</h3>
+        <p>실제 매수/매도는 cron payload의 실행 허용 플래그가 켜져 있을 때만 진행합니다.</p>
+      </div>
+      <div class="note danger">
+        <h3>매도 대상</h3>
+        <p>아침 매도는 전날 <code>auto_buy_orders</code>에서 실제 체결된 행만 대상입니다. 임의 계좌 보유 종목은 팔지 않습니다.</p>
+      </div>
+      <div class="note ok">
+        <h3>매도 방식</h3>
+        <p>2026-05-22 시장가/IOC 시장가가 NXT 프리마켓에서 거절되어, 현재 기본 매도 방식은 최유리지정가입니다.</p>
+      </div>
+    </div>
+  </section>
+</main>
+</body>
+</html>
