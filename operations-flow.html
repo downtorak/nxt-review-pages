@@ -222,7 +222,7 @@ li { margin: 6px 0; }
       <div class="step">
         <div class="num">1</div>
         <h3>정량 스캔</h3>
-        <p>시장 데이터를 기준으로 NXT 후보 전체와 조건 통과 후보를 만듭니다.</p>
+        <p>시장 데이터를 기준으로 전체 평가 결과와 정성평가 대상을 한 파일에 남깁니다.</p>
       </div>
       <div class="step">
         <div class="num">2</div>
@@ -232,7 +232,7 @@ li { margin: 6px 0; }
       <div class="step">
         <div class="num">3</div>
         <h3>최종 후보</h3>
-        <p>BUY 후보를 우선순위 큐로 정리합니다. 큐는 보유 확정이 아닙니다.</p>
+        <p>정성 평가 파일 안에 최종 매수 대기열 표시를 남깁니다. 큐는 보유 확정이 아닙니다.</p>
       </div>
       <div class="step">
         <div class="num">4</div>
@@ -258,7 +258,7 @@ li { margin: 6px 0; }
       <div class="step">
         <div class="num">1</div>
         <h3>예측 검증</h3>
-        <p>전날 정성 평가가 다음날 시세와 맞았는지 검토합니다.</p>
+        <p>전날 정성평가 결과 전체가 다음날 시세와 맞았는지 검토합니다.</p>
       </div>
       <div class="step">
         <div class="num">2</div>
@@ -293,17 +293,15 @@ li { margin: 6px 0; }
     <div class="files">
       <div class="card">
         <h3>후보와 평가</h3>
-        <p class="file">live_nxt_candidates_YYYYMMDD.csv</p>
-        <p>NXT 조건을 통과한 실전 후보 목록입니다.</p>
-        <p class="file">quant_scan_all_YYYYMMDD.csv</p>
-        <p>정량 스캔 전체 결과입니다. 리포트의 전체 후보 표에 쓰입니다.</p>
-        <p class="file">qualitative_labels_YYYYMMDD.csv</p>
-        <p>정성 평가 라벨과 판단 근거입니다.</p>
+        <p class="file">quantitative_evaluation_result_YYYYMMDD.csv</p>
+        <p>정량 스캔 전체 결과입니다. 통과/탈락 사유와 정성평가 대상 여부를 함께 담습니다.</p>
+        <p class="file">qualitative_evaluation_result_YYYYMMDD.csv</p>
+        <p>정성 평가 라벨, 판단 근거, 최종 매수 대기열 표시를 함께 담습니다.</p>
       </div>
       <div class="card">
         <h3>매수 실행</h3>
-        <p class="file">final_buy_candidates_YYYYMMDD.csv</p>
-        <p>실제 매수 시도 순서입니다. 보유 확정 목록은 아닙니다.</p>
+        <p class="file">final_buy_target / final_buy_rank</p>
+        <p><code>qualitative_evaluation_result</code> 안의 최종 매수 시도 순서입니다. 보유 확정 목록은 아닙니다.</p>
         <p class="file">auto_buy_orders_YYYYMMDD.csv</p>
         <p>매수 주문 결과입니다. 다음날 매도 대상 판단의 원천입니다.</p>
       </div>
