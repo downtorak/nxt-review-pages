@@ -1,0 +1,798 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NXT 아침 매도/회고 리포트 20260618</title>
+<style>
+
+:root { --bg:#f6f1ea; --paper:#fffaf3; --card:#ffffff; --ink:#24201c; --muted:#776c61; --line:#eaded1; --accent:#a95a48; --green:#2f6f58; --red:#9e3f38; --amber:#8b6a2e; --blue:#3e6385; --teal:#3f766d; }
+* { box-sizing:border-box; } body { margin:0; background:var(--bg); color:var(--ink); font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; line-height:1.55; }
+.container { max-width:1180px; margin:0 auto; padding:32px 18px 72px; }
+.hero { border:1px solid var(--line); border-radius:28px; padding:28px; background:linear-gradient(135deg,#fffaf3,#f1dfd0); box-shadow:0 10px 30px rgba(80,50,30,.06); }
+h1 { margin:0; font-size:32px; } .subtitle { margin-top:8px; color:var(--muted); }
+.metrics { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; margin-top:20px; }
+	.metric { background:rgba(255,255,255,.72); border:1px solid var(--line); border-radius:18px; padding:14px; } .metric span { display:block; color:var(--muted); font-size:13px; } .metric b { display:block; font-size:22px; } .metric small { display:inline; margin-left:4px; color:var(--muted); font-size:13px; font-weight:800; }
+section { margin-top:24px; padding:22px; border:1px solid var(--line); border-radius:24px; background:var(--paper); }
+h2 { margin:0 0 14px; font-size:22px; } h3 { margin:0 0 8px; } h3 span { color:var(--muted); font-size:13px; font-weight:500; }
+.card-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; } .card-grid.one-column { grid-template-columns:1fr; }
+.card { background:var(--card); border:1px solid var(--line); border-radius:20px; padding:16px; position:relative; }
+.pill { display:inline-block; border-radius:999px; padding:4px 9px; background:#f3ebe2; color:#5f5349; font-size:12px; }
+dl { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px 14px; margin:12px 0 0; } dt { color:var(--muted); font-size:12px; } dd { margin:0; font-weight:700; }
+.label-row { display:flex; align-items:center; gap:8px; margin-bottom:8px; } .label-row > span { color:var(--muted); font-size:12px; font-weight:700; }
+.label { display:inline-block; padding:4px 10px; border:1px solid #e1d4c7; border-radius:999px; background:#fbf6ef; color:#5f5349; font-size:12px; font-weight:800; } .label.buy { color:var(--green); background:#f4faf6; border-color:#cfe0d6; } .label.watch { color:var(--amber); background:#fbf7ed; border-color:#e4d7b8; } .label.exclude { color:var(--red); background:#fbf2ef; border-color:#e5cfc9; }
+.qual-card { padding:0; overflow:visible; border-left:1px solid var(--line); box-shadow:0 8px 24px rgba(80,50,30,.05); }
+.qual-head { display:flex; justify-content:space-between; gap:14px; align-items:flex-start; padding:18px 18px 12px; background:linear-gradient(180deg,#fffdf9,#fff8ef); border-bottom:1px solid var(--line); } .qual-head h3 { margin-bottom:0; font-size:21px; }
+.confidence { min-width:86px; text-align:right; padding:8px 10px; border-radius:14px; background:#fff; border:1px solid var(--line); } .confidence span { display:block; color:var(--muted); font-size:12px; } .confidence b { font-size:22px; }
+.summary-panel, .sentence-panel { margin:16px 18px; }
+.panel-title { margin-bottom:8px; color:var(--accent); font-size:12px; font-weight:900; letter-spacing:.04em; }
+.summary-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:8px; }
+.summary-grid.qualitative-grid { grid-template-columns:repeat(3,minmax(0,1fr)); }
+.summary-item { border:1px solid var(--line); border-radius:14px; padding:10px 11px; background:#fffdf9; color:var(--muted); font-size:12px; }
+.item-label { color:var(--muted); font-size:12px; line-height:1.2; }
+.summary-item b { display:block; color:var(--ink); font-size:16px; line-height:1.25; margin-top:2px; }
+.hint-wrap { position:relative; display:inline-block; max-width:100%; border-bottom:1px dotted #a99583; cursor:help; text-decoration:none; }
+.hint-text { position:absolute; left:0; top:calc(100% + 6px); z-index:20; width:min(240px,76vw); padding:9px 10px; border:1px solid #dccdbd; border-radius:12px; background:#24201c; color:#fffaf3; box-shadow:0 10px 24px rgba(36,32,28,.18); font-size:12px; font-weight:500; line-height:1.45; white-space:normal; opacity:0; visibility:hidden; transform:translateY(-2px); transition:opacity .12s ease, transform .12s ease, visibility .12s ease; pointer-events:none; }
+.hint-wrap:hover .hint-text { opacity:1; visibility:visible; transform:translateY(0); }
+.sentence-panel { margin-top:0; padding:14px; border:1px solid var(--line); border-radius:18px; background:#fffdf9; }
+.sentence-stack { display:grid; gap:10px; }
+.sentence-box { border-left:3px solid #dfcab6; padding-left:12px; }
+.sentence-label { display:block; margin-bottom:4px; color:var(--accent); font-size:12px; font-weight:900; letter-spacing:.03em; }
+.sentence-box p { margin:0; }
+.sentence-box.decision { border-left-color:var(--blue); }
+.sentence-box.decision .sentence-label { color:var(--blue); }
+.sentence-box.decision p { font-weight:800; }
+.sentence-box.catalyst { border-left-color:var(--teal); }
+.sentence-box.catalyst .sentence-label { color:var(--teal); }
+.sentence-box.risk { border-left-color:#d49a91; }
+.sentence-box.risk .sentence-label { color:var(--red); }
+.sentence-box.evidence { border-left-color:#caa565; }
+.sentence-box.evidence .sentence-label { color:var(--amber); }
+.position-summary { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:8px; margin-bottom:10px; }
+.status-strip { display:flex; flex-wrap:wrap; gap:8px; margin:0 0 14px; }
+.status-pill { display:inline-block; border:1px solid var(--line); border-radius:999px; padding:5px 10px; background:#fffaf3; color:#5f5349; font-size:12px; font-weight:800; }
+.status-pill.filled, .status-badge.filled { color:var(--green); background:#f4faf6; border-color:#cfe0d6; }
+.status-pill.partial, .status-badge.partial { color:var(--amber); background:#fbf7ed; border-color:#e4d7b8; }
+.status-pill.unfilled, .status-badge.unfilled { color:#6f6258; background:#f5efe8; border-color:#e2d7cb; }
+.status-pill.dry, .status-badge.dry, .status-pill.skip, .status-badge.skip { color:#6f6258; background:#f5efe8; border-color:#e2d7cb; }
+.status-pill.pending, .status-badge.pending, .status-pill.error, .status-badge.error { color:var(--red); background:#fbf2ef; border-color:#e5cfc9; }
+.position-card { overflow:visible; box-shadow:0 8px 22px rgba(80,50,30,.04); }
+.position-card.pending, .position-card.error { border-color:#e5cfc9; }
+.qual-card.prediction-card { padding:0; }
+.prediction-result { min-width:128px; }
+.prediction-result b { font-size:18px; }
+.position-head { display:flex; justify-content:space-between; gap:14px; align-items:flex-start; margin-bottom:12px; }
+.status-badge { display:inline-block; margin-bottom:8px; border:1px solid var(--line); border-radius:999px; padding:4px 10px; background:#fbf6ef; color:#5f5349; font-size:12px; font-weight:900; }
+.status-badge.profit { color:var(--green); background:#f4faf6; border-color:#cfe0d6; }
+.status-badge.loss { color:var(--red); background:#fbf2ef; border-color:#e5cfc9; }
+.status-badge.flat { color:#6f6258; background:#f5efe8; border-color:#e2d7cb; }
+.sell-plan { min-width:118px; text-align:right; padding:8px 10px; border:1px solid var(--line); border-radius:14px; background:#fffdf9; }
+.sell-plan span { display:block; color:var(--muted); font-size:12px; }
+.sell-plan b { display:block; font-size:15px; }
+.sell-plan b small, .metric b small { font-size:0.72em; font-weight:800; color:var(--muted); }
+.sell-plan em { display:block; margin-top:2px; font-size:12px; font-style:normal; font-weight:800; }
+.position-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; }
+.order-flow { margin-top:12px; border-top:1px solid var(--line); padding-top:10px; }
+.order-flow summary { cursor:pointer; color:var(--muted); font-size:13px; font-weight:800; }
+.order-flow dl { grid-template-columns:repeat(2,minmax(0,1fr)); }
+.positive { color:var(--green); } .negative { color:var(--red); } .neutral { color:#6f6258; }
+.note-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
+.note-box { background:#fff; border:1px solid var(--line); border-radius:18px; padding:18px; } .note-box h3 { margin-top:18px; color:var(--accent); } .note-box h3:first-child { margin-top:0; } .bullet { margin:4px 0; }
+.scan-summary { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:12px; }
+.table-wrap { max-height:520px; overflow:auto; border:1px solid var(--line); border-radius:14px; background:white; } table { width:100%; border-collapse:collapse; font-size:13px; } th,td { border-bottom:1px solid #efe5da; padding:8px 9px; text-align:left; white-space:nowrap; } th { position:sticky; top:0; background:#f5ece3; z-index:1; } tr.pass td { background:#f7fff9; } tr.error td { background:#fff1ef; }
+.muted { color:var(--muted); }
+@media (max-width:900px) { .metrics, .card-grid, .note-grid { grid-template-columns:1fr; } dl { grid-template-columns:1fr; } .qual-head, .position-head { flex-direction:column; align-items:flex-start; } .confidence, .sell-plan { text-align:left; } .position-summary { grid-template-columns:repeat(2,minmax(0,1fr)); } .position-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } .quant-grid { grid-template-columns:repeat(4,minmax(0,1fr)); } .qualitative-grid { grid-template-columns:repeat(3,minmax(0,1fr)); } .summary-item { padding:9px 7px; } .summary-item b { font-size:clamp(11px,3.2vw,16px); white-space:nowrap; } .item-label { font-size:clamp(9px,2.8vw,12px); white-space:nowrap; } }
+@media (max-width:360px) { .summary-grid { gap:6px; } .summary-item { padding:8px 5px; } .summary-item b { font-size:11px; } .item-label { font-size:9px; } }
+
+</style>
+</head>
+<body><div class="container">
+<header class="hero">
+  <h1>🌸 NXT 아침 매도/회고 리포트</h1>
+  <div class="subtitle">매도일 20260618</div>
+  <div class="metrics">
+    
+    <div class="metric"><span>매도 완료</span><b>2종목</b></div>
+    <div class="metric"><span>매수금액</span><b>1,099,500원</b></div>
+    <div class="metric"><span>매도금액</span><b>1,101,000원</b></div>
+    <div class="metric"><span>실현손익</span><b>-736원 <small>(-0.07%)</small></b></div>
+        
+  </div>
+</header>
+
+<section>
+  <h2>1. 오늘 매도 결과</h2>
+  <div class="card-grid">
+            <article class="card position-card">
+              <div class="position-head">
+                <div>
+                  <div class="status-badge loss">손실 마감</div>
+                  <h3>디앤디파마텍 <span>347850</span></h3>
+                </div>
+                <div class="sell-plan result-plan"><span>실현손익</span><b class="negative">-3,099원 <small>(-0.57%)</small></b></div>
+              </div>
+              <div class="position-grid">
+                <div class="summary-item"><div class="item-label">매수단가</div><b>0원</b></div>
+                <div class="summary-item"><div class="item-label">매도단가</div><b>0원</b></div>
+                <div class="summary-item"><div class="item-label">수량</div><b>0주</b></div>
+                <div class="summary-item"><div class="item-label">매수금액</div><b>543,000원</b></div>
+                <div class="summary-item"><div class="item-label">매도금액</div><b>541,000원</b></div>
+                <div class="summary-item"><div class="item-label">수수료/세금</div><b>17원 / 1,082원</b></div>
+              </div>
+            </article>
+            
+            <article class="card position-card">
+              <div class="position-head">
+                <div>
+                  <div class="status-badge profit">수익 실현</div>
+                  <h3>에이비엘바이오 <span>298380</span></h3>
+                </div>
+                <div class="sell-plan result-plan"><span>실현손익</span><b class="positive">+2,363원 <small>(+0.42%)</small></b></div>
+              </div>
+              <div class="position-grid">
+                <div class="summary-item"><div class="item-label">매수단가</div><b>0원</b></div>
+                <div class="summary-item"><div class="item-label">매도단가</div><b>0원</b></div>
+                <div class="summary-item"><div class="item-label">수량</div><b>0주</b></div>
+                <div class="summary-item"><div class="item-label">매수금액</div><b>556,500원</b></div>
+                <div class="summary-item"><div class="item-label">매도금액</div><b>560,000원</b></div>
+                <div class="summary-item"><div class="item-label">수수료/세금</div><b>17원 / 1,120원</b></div>
+              </div>
+            </article>
+            </div>
+</section>
+
+<section>
+  <h2>2. 정성예측 검증</h2>
+  
+  <div class="position-summary">
+    <div class="summary-item"><div class="item-label">검증 대상</div><b>11종목</b></div>
+    <div class="summary-item"><div class="item-label">예상 부합</div><b>2종목</b></div>
+    <div class="summary-item"><div class="item-label">예상 초과</div><b>0종목</b></div>
+    <div class="summary-item"><div class="item-label">예상 하회</div><b>9종목</b></div>
+  </div>
+        
+  <div class="card-grid one-column">
+            <article class="card qual-card prediction-card buy">
+              <div class="qual-head">
+                <div>
+                  <div class="label-row">
+                    <div class="label buy">매수</div>
+                    <span>347850</span>
+                  </div>
+                  <h3>디앤디파마텍</h3>
+                </div>
+                <div class="confidence prediction-result"><span>예측 결과</span><b class="negative">예상 하회</b></div>
+              </div>
+              <div class="summary-panel qualitative-summary">
+                <div class="panel-title">예측 검증</div>
+                <div class="summary-grid qualitative-grid">
+                  <div class="summary-item"><div class="item-label"><span class="hint-wrap" aria-label="실제 거래 종목은 체결 평균 매수가, 미거래 종목은 전날 정성평가 시점 가격입니다.">매수가<span class="hint-text">실제 거래 종목은 체결 평균 매수가, 미거래 종목은 전날 정성평가 시점 가격입니다.</span></span></div><b>108,600원</b></div>
+<div class="summary-item"><div class="item-label"><span class="hint-wrap" aria-label="실제 거래 종목은 체결 평균 매도가, 미거래 종목은 매도일 08:30 가격입니다.">매도가<span class="hint-text">실제 거래 종목은 체결 평균 매도가, 미거래 종목은 매도일 08:30 가격입니다.</span></span></div><b>108,200원</b></div>
+<div class="summary-item"><div class="item-label"><span class="hint-wrap" aria-label="다음날 NXT 초반 가격이 기준가 대비 얼마나 움직일지 잡은 보수적 예상치입니다.">예상 등락률<span class="hint-text">다음날 NXT 초반 가격이 기준가 대비 얼마나 움직일지 잡은 보수적 예상치입니다.</span></span></div><b>+1.60%</b></div>
+<div class="summary-item"><div class="item-label"><span class="hint-wrap" aria-label="매수가와 매도가 기준으로 계산한 결과 수익률입니다.">수익률<span class="hint-text">매수가와 매도가 기준으로 계산한 결과 수익률입니다.</span></span></div><b><span class="negative">-0.57%</span></b></div>
+<div class="summary-item"><div class="item-label">차이</div><b><span class="negative">-2.17%p</span></b></div>
+                </div>
+              </div>
+              <div class="sentence-panel">
+                <div class="sentence-stack">
+                  
+                  <div class="sentence-box catalyst">
+                    <div class="sentence-label">예상과 부합한 부분</div>
+                    <p>LG AI연구원과 AI 기반 펩타이드 신약 공동개발 본계약이라는 전일 촉매는 실제로 회사 사업과 직접 연결된 재료였고, 6월 17일 정규장 급등을 만든 핵심 근거로 확인됐다.</p>
+                  </div>
+            
+
+                  <div class="sentence-box risk">
+                    <div class="sentence-label">예상이 틀어진 부분</div>
+                    <p>다음날 08:30 매도가는 기준가 대비 하락해 예상한 +1%대 중반의 잔여 모멘텀은 이어지지 못했다. 전일 17% 안팎 급등 후 투자경고 이력과 차익실현 위험을 낮게 보지 말아야 했던 사례다.</p>
+                  </div>
+            
+
+                  <div class="sentence-box evidence">
+                    <div class="sentence-label">새로 확인된 뉴스</div>
+                    <p>전일 확인된 LG AI연구원 공동개발 뉴스 외에 다음날 아침 추가 신규 공시는 뚜렷하지 않았다. 장 초반에는 전일 급등 바이오주에 대한 차익실현 압력이 우세했던 것으로 해석된다.</p>
+                  </div>
+            
+
+                  <div class="sentence-box decision">
+                    <div class="sentence-label">원인 판단</div>
+                    <p>회사 고유 호재는 맞았지만 전일 급등폭이 커서 재료 확인 후 매물 출회가 우세했다. 원인은 과열 후 차익실현 및 신규 후속 뉴스 부재로 판단한다.</p>
+                  </div>
+            
+
+                  <div class="sentence-box evidence">
+                    <div class="sentence-label">출처</div>
+                    <p>Daum/서울경제 2026-06-17 디앤디파마텍 LG AI연구원 공동개발 https://v.daum.net/v/20260617152803346; Nate 2026-06-17 K바이오주 LG AI연구원 공동개발 https://news.nate.com/view/20260617n21396</p>
+                  </div>
+            
+                </div>
+              </div>
+            </article>
+            
+            <article class="card qual-card prediction-card buy">
+              <div class="qual-head">
+                <div>
+                  <div class="label-row">
+                    <div class="label buy">매수</div>
+                    <span>082740</span>
+                  </div>
+                  <h3>한화엔진</h3>
+                </div>
+                <div class="confidence prediction-result"><span>예측 결과</span><b class="negative">예상 하회</b></div>
+              </div>
+              <div class="summary-panel qualitative-summary">
+                <div class="panel-title">예측 검증</div>
+                <div class="summary-grid qualitative-grid">
+                  <div class="summary-item"><div class="item-label"><span class="hint-wrap" aria-label="실제 거래 종목은 체결 평균 매수가, 미거래 종목은 전날 정성평가 시점 가격입니다.">매수가<span class="hint-text">실제 거래 종목은 체결 평균 매수가, 미거래 종목은 전날 정성평가 시점 가격입니다.</span></span></div><b>67,600원</b></div>
+<div class="summary-item"><div class="item-label"><span class="hint-wrap" aria-label="실제 거래 종목은 체결 평균 매도가, 미거래 종목은 매도일 08:30 가격입니다.">매도가<span class="hint-text">실제 거래 종목은 체결 평균 매도가, 미거래 종목은 매도일 08:30 가격입니다.</span></span></div><b>65,700원</b></div>
+<div class="summary-item"><div class="item-label"><span class="hint-wrap" aria-label="다음날 NXT 초반 가격이 기준가 대비 얼마나 움직일지 잡은 보수적 예상치입니다.">예상 등락률<span class="hint-text">다음날 NXT 초반 가격이 기준가 대비 얼마나 움직일지 잡은 보수적 예상치입니다.</span></span></div><b>+1.20%</b></div>
+<div class="summary-item"><div class="item-label"><span class="hint-wrap" aria-label="매수가와 매도가 기준으로 계산한 결과 수익률입니다.">수익률<span class="hint-text">매수가와 매도가 기준으로 계산한 결과 수익률입니다.</span></span></div><b><span class="negative">-2.81%</span></b></div>
+<div class="summary-item"><div class="item-label">차이</div><b><span class="negative">-4.01%p</span></b></div>
+                </div>
+              </div>
+              <div class="sentence-panel">
+                <div class="sentence-stack">
+                  
+                  <div class="sentence-box catalyst">
+                    <div class="sentence-label">예상과 부합한 부분</div>
+                    <p>조선주 랠리가 엔진주로 확산됐고, 한화엔진이 전일 장중 14%대 급등했다는 점은 전날 논리였던 조선 호황 및 캐나다 잠수함 기대 확산과 부합했다. 선박엔진 수주잔고와 조선업 후행 수혜라는 중기 실적 논리도 확인된다.</p>
+                  </div>
+            
+
+                  <div class="sentence-box risk">
+                    <div class="sentence-label">예상이 틀어진 부분</div>
+                    <p>08:30 가격은 기준가 대비 크게 밀려 기대수익률을 하회했다. 조선 기자재 동반 테마가 직접 수주 공시보다 수급 확산 성격이 강했고, 전일 급등 후 차익실현 위험이 실제 움직임을 압도했다.</p>
+                  </div>
+            
+
+                  <div class="sentence-box evidence">
+                    <div class="sentence-label">새로 확인된 뉴스</div>
+                    <p>전일 한화엔진 급등은 조선주 랠리의 엔진주 확산으로 보도됐고, 별도 신규 수주 공시보다 섹터 기대의 확산으로 설명됐다. 기존에는 조선 호황과 수주잔고 증가, 저가 수주 물량 소진이 중기 실적 근거로 제시돼 있었다.</p>
+                  </div>
+            
+
+                  <div class="sentence-box decision">
+                    <div class="sentence-label">원인 판단</div>
+                    <p>섹터 모멘텀은 맞았으나 개별 신규 촉매가 약했고 전일 14%대 급등에 따른 단기 매물이 강했다. 원인은 섹터 테마 과열 후 차익실현으로 본다.</p>
+                  </div>
+            
+
+                  <div class="sentence-box evidence">
+                    <div class="sentence-label">출처</div>
+                    <p>Daum/한국경제TV 2026-06-17 조선주 랠리 엔진주 확산 https://v.daum.net/v/tkfDy44qCs; DealSite경제TV 2026-04 한화엔진 등급전망 긍정적 상향 https://news.dealsitetv.com/articles/168731</p>
+                  </div>
+            
+                </div>
+              </div>
+            </article>
+            
+            <article class="card qual-card prediction-card buy">
+              <div class="qual-head">
+                <div>
+                  <div class="label-row">
+                    <div class="label buy">매수</div>
+                    <span>298380</span>
+                  </div>
+                  <h3>에이비엘바이오</h3>
+                </div>
+                <div class="confidence prediction-result"><span>예측 결과</span><b class="negative">예상 하회</b></div>
+              </div>
+              <div class="summary-panel qualitative-summary">
+                <div class="panel-title">예측 검증</div>
+                <div class="summary-grid qualitative-grid">
+                  <div class="summary-item"><div class="item-label"><span class="hint-wrap" aria-label="실제 거래 종목은 체결 평균 매수가, 미거래 종목은 전날 정성평가 시점 가격입니다.">매수가<span class="hint-text">실제 거래 종목은 체결 평균 매수가, 미거래 종목은 전날 정성평가 시점 가격입니다.</span></span></div><b>111,300원</b></div>
+<div class="summary-item"><div class="item-label"><span class="hint-wrap" aria-label="실제 거래 종목은 체결 평균 매도가, 미거래 종목은 매도일 08:30 가격입니다.">매도가<span class="hint-text">실제 거래 종목은 체결 평균 매도가, 미거래 종목은 매도일 08:30 가격입니다.</span></span></div><b>112,000원</b></div>
+<div class="summary-item"><div class="item-label"><span class="hint-wrap" aria-label="다음날 NXT 초반 가격이 기준가 대비 얼마나 움직일지 잡은 보수적 예상치입니다.">예상 등락률<span class="hint-text">다음날 NXT 초반 가격이 기준가 대비 얼마나 움직일지 잡은 보수적 예상치입니다.</span></span></div><b>+1.50%</b></div>
+<div class="summary-item"><div class="item-label"><span class="hint-wrap" aria-label="매수가와 매도가 기준으로 계산한 결과 수익률입니다.">수익률<span class="hint-text">매수가와 매도가 기준으로 계산한 결과 수익률입니다.</span></span></div><b><span class="positive">+0.42%</span></b></div>
+<div class="summary-item"><div class="item-label">차이</div><b><span class="negative">-1.08%p</span></b></div>
+                </div>
+              </div>
+              <div class="sentence-panel">
+                <div class="sentence-stack">
+                  
+                  <div class="sentence-box catalyst">
+                    <div class="sentence-label">예상과 부합한 부분</div>
+                    <p>에이비엘바이오의 ABL111 FDA 패스트트랙 지정은 전날 thesis처럼 파이프라인 가치에 직접 연결되는 호재였고, 전일 9%대 상승 마감으로 시장 반응도 확인됐다. 실제 매도 수익률도 소폭 플러스였다.</p>
+                  </div>
+            
+
+                  <div class="sentence-box risk">
+                    <div class="sentence-label">예상이 틀어진 부분</div>
+                    <p>예상한 +1.5%에는 못 미쳤다. 패스트트랙 지정이라는 직접 호재에도 전일 장중 12%대 급등이 먼저 반영됐고, 다음날 아침에는 추가 상승 탄력이 제한됐다.</p>
+                  </div>
+            
+
+                  <div class="sentence-box evidence">
+                    <div class="sentence-label">새로 확인된 뉴스</div>
+                    <p>FDA 패스트트랙 지정 보도는 6월 17일 집중됐고, 2026년 4분기 허가용 임상 3상 추진 및 하반기 글로벌 학회 데이터 공개 기대가 함께 언급됐다. 다음날 아침 별도 추가 공시는 확인되지 않았다.</p>
+                  </div>
+            
+
+                  <div class="sentence-box decision">
+                    <div class="sentence-label">원인 판단</div>
+                    <p>직접 촉매의 품질은 양호했지만 단기 가격에는 이미 상당 부분 반영됐다. 원인은 호재 선반영 후 제한적 후속 매수, 일부 차익실현으로 판단한다.</p>
+                  </div>
+            
+
+                  <div class="sentence-box evidence">
+                    <div class="sentence-label">출처</div>
+                    <p>연합뉴스 2026-06-17 FDA 패스트트랙 지정 https://www.yna.co.kr/amp/view/AKR20260617064100008; 아시아경제 2026-06-17 ABL111 FDA 패스트트랙 및 임상 계획 https://www.asiae.co.kr/article/2026061708425532946; 이투데이 2026-06-17 장중 12%대 강세 https://www.etoday.co.kr/news/view/2594477</p>
+                  </div>
+            
+                </div>
+              </div>
+            </article>
+            
+            <article class="card qual-card prediction-card watch">
+              <div class="qual-head">
+                <div>
+                  <div class="label-row">
+                    <div class="label watch">관찰</div>
+                    <span>290650</span>
+                  </div>
+                  <h3>엘앤씨바이오</h3>
+                </div>
+                <div class="confidence prediction-result"><span>예측 결과</span><b class="negative">예상 하회</b></div>
+              </div>
+              <div class="summary-panel qualitative-summary">
+                <div class="panel-title">예측 검증</div>
+                <div class="summary-grid qualitative-grid">
+                  <div class="summary-item"><div class="item-label"><span class="hint-wrap" aria-label="실제 거래 종목은 체결 평균 매수가, 미거래 종목은 전날 정성평가 시점 가격입니다.">매수가<span class="hint-text">실제 거래 종목은 체결 평균 매수가, 미거래 종목은 전날 정성평가 시점 가격입니다.</span></span></div><b>88,900원</b></div>
+<div class="summary-item"><div class="item-label"><span class="hint-wrap" aria-label="실제 거래 종목은 체결 평균 매도가, 미거래 종목은 매도일 08:30 가격입니다.">매도가<span class="hint-text">실제 거래 종목은 체결 평균 매도가, 미거래 종목은 매도일 08:30 가격입니다.</span></span></div><b>86,500원</b></div>
+<div class="summary-item"><div class="item-label"><span class="hint-wrap" aria-label="다음날 NXT 초반 가격이 기준가 대비 얼마나 움직일지 잡은 보수적 예상치입니다.">예상 등락률<span class="hint-text">다음날 NXT 초반 가격이 기준가 대비 얼마나 움직일지 잡은 보수적 예상치입니다.</span></span></div><b>+0.30%</b></div>
+<div class="summary-item"><div class="item-label"><span class="hint-wrap" aria-label="매수가와 매도가 기준으로 계산한 결과 수익률입니다.">수익률<span class="hint-text">매수가와 매도가 기준으로 계산한 결과 수익률입니다.</span></span></div><b><span class="negative">-2.70%</span></b></div>
+<div class="summary-item"><div class="item-label">차이</div><b><span class="negative">-3.00%p</span></b></div>
+                </div>
+              </div>
+              <div class="sentence-panel">
+                <div class="sentence-stack">
+                  
+                  <div class="sentence-box catalyst">
+                    <div class="sentence-label">예상과 부합한 부분</div>
+                    <p>전일 기준가가 52주 범위 상단에 가까웠고 수급성 급등 성격이 강하다는 WATCH 판단은 다음날 -2%대 하락으로 대체로 맞았다. 명확한 신규 촉매 부족과 단기 변동성 경계가 유효했다.</p>
+                  </div>
+            
+
+                  <div class="sentence-box risk">
+                    <div class="sentence-label">예상이 틀어진 부분</div>
+                    <p>예상은 소폭 플러스였지만 실제는 하락했다. 6월 9일에도 VI 하락 사례가 있었고, 최근 가격대가 이미 높은 구간이어서 수급 둔화 시 낙폭이 커질 수 있음을 더 강하게 반영했어야 했다.</p>
+                  </div>
+            
+
+                  <div class="sentence-box evidence">
+                    <div class="sentence-label">새로 확인된 뉴스</div>
+                    <p>인베스팅 기준 6월 중 52주 범위 상단권 가격 흐름이 확인되고, 6월 9일에는 전일 대비 8%대 하락 VI 발동 보도가 있었다. 다음날 아침 신규 실적 또는 계약성 뉴스는 뚜렷하지 않았다.</p>
+                  </div>
+            
+
+                  <div class="sentence-box decision">
+                    <div class="sentence-label">원인 판단</div>
+                    <p>신규 촉매보다 수급과 밸류에이션 재평가 기대가 앞선 상태에서 모멘텀이 이어지지 않았다. 원인은 고점권 수급 약화와 차익실현으로 판단한다.</p>
+                  </div>
+            
+
+                  <div class="sentence-box evidence">
+                    <div class="sentence-label">출처</div>
+                    <p>Investing 엘앤씨바이오 가격/52주 범위 https://kr.investing.com/equities/l-c-bio-co-ltd; 조선비즈 2026-06-09 엘앤씨바이오 하락 VI https://biz.chosun.com/stock/c-biz_bot/2026/06/09/GEYWKYZSGBRWKZDGMM3DEZRRHE/</p>
+                  </div>
+            
+                </div>
+              </div>
+            </article>
+            
+            <article class="card qual-card prediction-card watch">
+              <div class="qual-head">
+                <div>
+                  <div class="label-row">
+                    <div class="label watch">관찰</div>
+                    <span>226950</span>
+                  </div>
+                  <h3>올릭스</h3>
+                </div>
+                <div class="confidence prediction-result"><span>예측 결과</span><b class="negative">예상 하회</b></div>
+              </div>
+              <div class="summary-panel qualitative-summary">
+                <div class="panel-title">예측 검증</div>
+                <div class="summary-grid qualitative-grid">
+                  <div class="summary-item"><div class="item-label"><span class="hint-wrap" aria-label="실제 거래 종목은 체결 평균 매수가, 미거래 종목은 전날 정성평가 시점 가격입니다.">매수가<span class="hint-text">실제 거래 종목은 체결 평균 매수가, 미거래 종목은 전날 정성평가 시점 가격입니다.</span></span></div><b>144,200원</b></div>
+<div class="summary-item"><div class="item-label"><span class="hint-wrap" aria-label="실제 거래 종목은 체결 평균 매도가, 미거래 종목은 매도일 08:30 가격입니다.">매도가<span class="hint-text">실제 거래 종목은 체결 평균 매도가, 미거래 종목은 매도일 08:30 가격입니다.</span></span></div><b>143,300원</b></div>
+<div class="summary-item"><div class="item-label"><span class="hint-wrap" aria-label="다음날 NXT 초반 가격이 기준가 대비 얼마나 움직일지 잡은 보수적 예상치입니다.">예상 등락률<span class="hint-text">다음날 NXT 초반 가격이 기준가 대비 얼마나 움직일지 잡은 보수적 예상치입니다.</span></span></div><b>+0.20%</b></div>
+<div class="summary-item"><div class="item-label"><span class="hint-wrap" aria-label="매수가와 매도가 기준으로 계산한 결과 수익률입니다.">수익률<span class="hint-text">매수가와 매도가 기준으로 계산한 결과 수익률입니다.</span></span></div><b><span class="negative">-0.62%</span></b></div>
+<div class="summary-item"><div class="item-label">차이</div><b><span class="negative">-0.82%p</span></b></div>
+                </div>
+              </div>
+              <div class="sentence-panel">
+                <div class="sentence-stack">
+                  
+                  <div class="sentence-box catalyst">
+                    <div class="sentence-label">예상과 부합한 부분</div>
+                    <p>올릭스의 RNAi 플랫폼과 과거 대형 기술이전 이력은 중장기 기대 근거로 확인된다. 다만 전날 판단처럼 당일 신규 촉매가 뚜렷하지 않고 마일스톤 의존도가 큰 점은 다음날 약보합 결과와 잘 맞았다.</p>
+                  </div>
+            
+
+                  <div class="sentence-box risk">
+                    <div class="sentence-label">예상이 틀어진 부분</div>
+                    <p>예상은 거의 보합권이었으나 실제는 -0.6%대로 밀렸다. 플랫폼 기대가 장기 재료라 장전 단기 매수세를 만들기에는 약했고, 최근 급등 이력에 따른 밸류에이션 부담이 더 크게 작용했다.</p>
+                  </div>
+            
+
+                  <div class="sentence-box evidence">
+                    <div class="sentence-label">새로 확인된 뉴스</div>
+                    <p>최근 보도들은 RNA간섭 플랫폼, 일라이릴리향 기술이전, 한소제약 및 로레알 협업 등 중장기 기술력에 초점이 있었다. 6월 18일 아침 단기 가격을 새로 끌 촉매성 공시나 뉴스는 확인되지 않았다.</p>
+                  </div>
+            
+
+                  <div class="sentence-box decision">
+                    <div class="sentence-label">원인 판단</div>
+                    <p>중장기 플랫폼 재료와 단기 매매 시간축이 맞지 않았다. 원인은 당일 신규 촉매 부재, 고평가 부담, 기술이전 마일스톤 불확실성으로 판단한다.</p>
+                  </div>
+            
+
+                  <div class="sentence-box evidence">
+                    <div class="sentence-label">출처</div>
+                    <p>DealSite경제TV 2025-12 올릭스 RNAi 플랫폼과 기술이전, 밸류에이션 부담 https://news.dealsitetv.com/articles/162552; 올릭스 뉴스룸 https://olixpharma.com/pr/news.php?code=news&amp;idx=18&amp;ptype=list</p>
+                  </div>
+            
+                </div>
+              </div>
+            </article>
+            
+            <article class="card qual-card prediction-card watch">
+              <div class="qual-head">
+                <div>
+                  <div class="label-row">
+                    <div class="label watch">관찰</div>
+                    <span>009420</span>
+                  </div>
+                  <h3>한올바이오파마</h3>
+                </div>
+                <div class="confidence prediction-result"><span>예측 결과</span><b class="negative">예상 하회</b></div>
+              </div>
+              <div class="summary-panel qualitative-summary">
+                <div class="panel-title">예측 검증</div>
+                <div class="summary-grid qualitative-grid">
+                  <div class="summary-item"><div class="item-label"><span class="hint-wrap" aria-label="실제 거래 종목은 체결 평균 매수가, 미거래 종목은 전날 정성평가 시점 가격입니다.">매수가<span class="hint-text">실제 거래 종목은 체결 평균 매수가, 미거래 종목은 전날 정성평가 시점 가격입니다.</span></span></div><b>56,600원</b></div>
+<div class="summary-item"><div class="item-label"><span class="hint-wrap" aria-label="실제 거래 종목은 체결 평균 매도가, 미거래 종목은 매도일 08:30 가격입니다.">매도가<span class="hint-text">실제 거래 종목은 체결 평균 매도가, 미거래 종목은 매도일 08:30 가격입니다.</span></span></div><b>56,200원</b></div>
+<div class="summary-item"><div class="item-label"><span class="hint-wrap" aria-label="다음날 NXT 초반 가격이 기준가 대비 얼마나 움직일지 잡은 보수적 예상치입니다.">예상 등락률<span class="hint-text">다음날 NXT 초반 가격이 기준가 대비 얼마나 움직일지 잡은 보수적 예상치입니다.</span></span></div><b>+0.60%</b></div>
+<div class="summary-item"><div class="item-label"><span class="hint-wrap" aria-label="매수가와 매도가 기준으로 계산한 결과 수익률입니다.">수익률<span class="hint-text">매수가와 매도가 기준으로 계산한 결과 수익률입니다.</span></span></div><b><span class="negative">-0.71%</span></b></div>
+<div class="summary-item"><div class="item-label">차이</div><b><span class="negative">-1.31%p</span></b></div>
+                </div>
+              </div>
+              <div class="sentence-panel">
+                <div class="sentence-stack">
+                  
+                  <div class="sentence-box catalyst">
+                    <div class="sentence-label">예상과 부합한 부분</div>
+                    <p>IMVT-1402 데이터 기대와 증권사 긍정 시각은 실제로 확인되는 투자 포인트였다. 동시에 2026년 하반기 데이터까지 기다림이 필요한 구간이라는 성격도 강해, 단기 BUY보다 WATCH가 맞았다는 점이 다음날 하락으로 확인됐다.</p>
+                  </div>
+            
+
+                  <div class="sentence-box risk">
+                    <div class="sentence-label">예상이 틀어진 부분</div>
+                    <p>예상은 +0.6%였으나 실제는 -0.7% 수준이었다. 파이프라인 기대가 직접적이지만 당일 신규 공시가 아니었고, 바토클리맙 TED 이슈 이후의 불확실성 및 과열 경계가 단기 수익률을 눌렀다.</p>
+                  </div>
+            
+
+                  <div class="sentence-box evidence">
+                    <div class="sentence-label">새로 확인된 뉴스</div>
+                    <p>유진투자증권 자료와 바이오 전문지 보도는 IMVT-1402의 주요 임상 결과 기대를 강조했지만, 대체로 하반기 이후 이벤트에 초점이 맞춰져 있었다. 6월 18일 아침 새로 확인된 단기 촉매는 제한적이었다.</p>
+                  </div>
+            
+
+                  <div class="sentence-box decision">
+                    <div class="sentence-label">원인 판단</div>
+                    <p>장기 임상 기대는 유지됐으나 단기 이벤트 공백이 컸다. 원인은 기대 선반영, 임상 일정 대기, 과거 파이프라인 불확실성에 따른 매수세 둔화로 본다.</p>
+                  </div>
+            
+
+                  <div class="sentence-box evidence">
+                    <div class="sentence-label">출처</div>
+                    <p>유진투자증권 2026-04-20 한올바이오파마 NDR 후기 https://www.eugenefn.com/common/files/amail/20260420_009420_hskwon_329.pdf; DailyInvest 2026-03 IMVT-1402 데이터 기대 https://www.dailyinvest.kr/news/articleView.html?idxno=70297; 메디파나 2026-04 IMVT-1402 핵심 파이프라인 부각 https://www.medipana.com/news/articleView.html?idxno=409713</p>
+                  </div>
+            
+                </div>
+              </div>
+            </article>
+            
+            <article class="card qual-card prediction-card watch">
+              <div class="qual-head">
+                <div>
+                  <div class="label-row">
+                    <div class="label watch">관찰</div>
+                    <span>039200</span>
+                  </div>
+                  <h3>오스코텍</h3>
+                </div>
+                <div class="confidence prediction-result"><span>예측 결과</span><b class="negative">예상 하회</b></div>
+              </div>
+              <div class="summary-panel qualitative-summary">
+                <div class="panel-title">예측 검증</div>
+                <div class="summary-grid qualitative-grid">
+                  <div class="summary-item"><div class="item-label"><span class="hint-wrap" aria-label="실제 거래 종목은 체결 평균 매수가, 미거래 종목은 전날 정성평가 시점 가격입니다.">매수가<span class="hint-text">실제 거래 종목은 체결 평균 매수가, 미거래 종목은 전날 정성평가 시점 가격입니다.</span></span></div><b>41,950원</b></div>
+<div class="summary-item"><div class="item-label"><span class="hint-wrap" aria-label="실제 거래 종목은 체결 평균 매도가, 미거래 종목은 매도일 08:30 가격입니다.">매도가<span class="hint-text">실제 거래 종목은 체결 평균 매도가, 미거래 종목은 매도일 08:30 가격입니다.</span></span></div><b>41,600원</b></div>
+<div class="summary-item"><div class="item-label"><span class="hint-wrap" aria-label="다음날 NXT 초반 가격이 기준가 대비 얼마나 움직일지 잡은 보수적 예상치입니다.">예상 등락률<span class="hint-text">다음날 NXT 초반 가격이 기준가 대비 얼마나 움직일지 잡은 보수적 예상치입니다.</span></span></div><b>+0.40%</b></div>
+<div class="summary-item"><div class="item-label"><span class="hint-wrap" aria-label="매수가와 매도가 기준으로 계산한 결과 수익률입니다.">수익률<span class="hint-text">매수가와 매도가 기준으로 계산한 결과 수익률입니다.</span></span></div><b><span class="negative">-0.83%</span></b></div>
+<div class="summary-item"><div class="item-label">차이</div><b><span class="negative">-1.23%p</span></b></div>
+                </div>
+              </div>
+              <div class="sentence-panel">
+                <div class="sentence-stack">
+                  
+                  <div class="sentence-box catalyst">
+                    <div class="sentence-label">예상과 부합한 부분</div>
+                    <p>오스코텍은 세비도플레닙 기술이전, 바이오 USA 참가, 항내성 항암제 파이프라인 등 바이오 테마 내 우호적 재료가 확인됐다. 그러나 전날 판단처럼 종목 고유의 당일 신규 촉매보다는 최근 테마와 기존 이벤트의 연장선이라는 성격이 강했다.</p>
+                  </div>
+            
+
+                  <div class="sentence-box risk">
+                    <div class="sentence-label">예상이 틀어진 부분</div>
+                    <p>예상은 소폭 플러스였으나 실제는 -0.8%대였다. 6월 초 1조원 규모 기술이전 뉴스가 이미 반영됐고, 6월 16일 바이오 USA 참가 뉴스도 파트너링 기대 수준이라 장전 단기 가격에는 힘이 부족했다.</p>
+                  </div>
+            
+
+                  <div class="sentence-box evidence">
+                    <div class="sentence-label">새로 확인된 뉴스</div>
+                    <p>6월 4일 오스코텍은 세비도플레닙 기술이전 이후 연구자 주도 임상 지원 및 3년 내 추가 기술이전 목표를 언급했다. 6월 16일에는 바이오 USA에서 항내성 항암제와 신장 섬유화 억제제 파트너링을 모색한다고 보도됐다.</p>
+                  </div>
+            
+
+                  <div class="sentence-box decision">
+                    <div class="sentence-label">원인 판단</div>
+                    <p>회사 재료는 존재하지만 신규성보다 기존 이벤트 재확인에 가까웠고, 테마성 수급이 약해졌다. 원인은 재료 선반영 및 개별 촉매 강도 부족으로 판단한다.</p>
+                  </div>
+            
+
+                  <div class="sentence-box evidence">
+                    <div class="sentence-label">출처</div>
+                    <p>연합뉴스 2026-06-04 오스코텍 세비도플레닙 기술이전 설명회 https://www.yna.co.kr/view/AKR20260604128500017; 조선비즈 2026-06-16 오스코텍 바이오 USA 참가 https://biz.chosun.com/science-chosun/bio/2026/06/16/HMS4XEHF6FAZLFAWDHH5KSQNXI/</p>
+                  </div>
+            
+                </div>
+              </div>
+            </article>
+            
+            <article class="card qual-card prediction-card watch">
+              <div class="qual-head">
+                <div>
+                  <div class="label-row">
+                    <div class="label watch">관찰</div>
+                    <span>237690</span>
+                  </div>
+                  <h3>에스티팜</h3>
+                </div>
+                <div class="confidence prediction-result"><span>예측 결과</span><b class="neutral">예상 부합</b></div>
+              </div>
+              <div class="summary-panel qualitative-summary">
+                <div class="panel-title">예측 검증</div>
+                <div class="summary-grid qualitative-grid">
+                  <div class="summary-item"><div class="item-label"><span class="hint-wrap" aria-label="실제 거래 종목은 체결 평균 매수가, 미거래 종목은 전날 정성평가 시점 가격입니다.">매수가<span class="hint-text">실제 거래 종목은 체결 평균 매수가, 미거래 종목은 전날 정성평가 시점 가격입니다.</span></span></div><b>133,500원</b></div>
+<div class="summary-item"><div class="item-label"><span class="hint-wrap" aria-label="실제 거래 종목은 체결 평균 매도가, 미거래 종목은 매도일 08:30 가격입니다.">매도가<span class="hint-text">실제 거래 종목은 체결 평균 매도가, 미거래 종목은 매도일 08:30 가격입니다.</span></span></div><b>133,700원</b></div>
+<div class="summary-item"><div class="item-label"><span class="hint-wrap" aria-label="다음날 NXT 초반 가격이 기준가 대비 얼마나 움직일지 잡은 보수적 예상치입니다.">예상 등락률<span class="hint-text">다음날 NXT 초반 가격이 기준가 대비 얼마나 움직일지 잡은 보수적 예상치입니다.</span></span></div><b>+0.50%</b></div>
+<div class="summary-item"><div class="item-label"><span class="hint-wrap" aria-label="매수가와 매도가 기준으로 계산한 결과 수익률입니다.">수익률<span class="hint-text">매수가와 매도가 기준으로 계산한 결과 수익률입니다.</span></span></div><b><span class="positive">+0.15%</span></b></div>
+<div class="summary-item"><div class="item-label">차이</div><b><span class="negative">-0.35%p</span></b></div>
+                </div>
+              </div>
+              <div class="sentence-panel">
+                <div class="sentence-stack">
+                  
+                  <div class="sentence-box catalyst">
+                    <div class="sentence-label">예상과 부합한 부분</div>
+                    <p>에스티팜은 1분기 어닝서프라이즈, 올리고 수주잔고, 임상용 물질 수주 확대라는 실적 가시성 근거가 확인됐다. 다음날 실제 수익률도 소폭 플러스로, WATCH 중에서는 전날 thesis가 가장 잘 맞은 편이다.</p>
+                  </div>
+            
+
+                  <div class="sentence-box risk">
+                    <div class="sentence-label">예상이 틀어진 부분</div>
+                    <p>상승폭은 예상 +0.5%보다 작았다. 4월 말 실적 호재와 목표가 상향이 이미 알려진 재료였고, 장전 신규 수주 공시가 없어 추가 프리미엄이 제한됐다.</p>
+                  </div>
+            
+
+                  <div class="sentence-box evidence">
+                    <div class="sentence-label">새로 확인된 뉴스</div>
+                    <p>연합뉴스와 Daum 보도는 1분기 영업이익이 시장 기대치를 30% 이상 웃돌고, 올리고 및 저분자 API 매출 성장과 수주잔고가 중장기 동력이라고 설명했다. 6월 18일 아침 새 단기 뉴스는 확인되지 않았다.</p>
+                  </div>
+            
+
+                  <div class="sentence-box decision">
+                    <div class="sentence-label">원인 판단</div>
+                    <p>실적 가시성은 방어 요인으로 작동했지만 신규 촉매 부재로 상승폭이 작았다. 원인은 기존 호재의 점진적 반영과 추가 이벤트 부재로 판단한다.</p>
+                  </div>
+            
+
+                  <div class="sentence-box evidence">
+                    <div class="sentence-label">출처</div>
+                    <p>연합뉴스 2026-04-28 에스티팜 호실적 상승 마감 https://www.yna.co.kr/view/AKR20260428054551008; Daum/서울경제 2026-05 에스티팜 어닝서프라이즈와 수주 성장 https://v.daum.net/v/xEhWAJSrll</p>
+                  </div>
+            
+                </div>
+              </div>
+            </article>
+            
+            <article class="card qual-card prediction-card watch">
+              <div class="qual-head">
+                <div>
+                  <div class="label-row">
+                    <div class="label watch">관찰</div>
+                    <span>145020</span>
+                  </div>
+                  <h3>휴젤</h3>
+                </div>
+                <div class="confidence prediction-result"><span>예측 결과</span><b class="negative">예상 하회</b></div>
+              </div>
+              <div class="summary-panel qualitative-summary">
+                <div class="panel-title">예측 검증</div>
+                <div class="summary-grid qualitative-grid">
+                  <div class="summary-item"><div class="item-label"><span class="hint-wrap" aria-label="실제 거래 종목은 체결 평균 매수가, 미거래 종목은 전날 정성평가 시점 가격입니다.">매수가<span class="hint-text">실제 거래 종목은 체결 평균 매수가, 미거래 종목은 전날 정성평가 시점 가격입니다.</span></span></div><b>257,000원</b></div>
+<div class="summary-item"><div class="item-label"><span class="hint-wrap" aria-label="실제 거래 종목은 체결 평균 매도가, 미거래 종목은 매도일 08:30 가격입니다.">매도가<span class="hint-text">실제 거래 종목은 체결 평균 매도가, 미거래 종목은 매도일 08:30 가격입니다.</span></span></div><b>255,500원</b></div>
+<div class="summary-item"><div class="item-label"><span class="hint-wrap" aria-label="다음날 NXT 초반 가격이 기준가 대비 얼마나 움직일지 잡은 보수적 예상치입니다.">예상 등락률<span class="hint-text">다음날 NXT 초반 가격이 기준가 대비 얼마나 움직일지 잡은 보수적 예상치입니다.</span></span></div><b>+0.40%</b></div>
+<div class="summary-item"><div class="item-label"><span class="hint-wrap" aria-label="매수가와 매도가 기준으로 계산한 결과 수익률입니다.">수익률<span class="hint-text">매수가와 매도가 기준으로 계산한 결과 수익률입니다.</span></span></div><b><span class="negative">-0.58%</span></b></div>
+<div class="summary-item"><div class="item-label">차이</div><b><span class="negative">-0.98%p</span></b></div>
+                </div>
+              </div>
+              <div class="sentence-panel">
+                <div class="sentence-stack">
+                  
+                  <div class="sentence-box catalyst">
+                    <div class="sentence-label">예상과 부합한 부분</div>
+                    <p>휴젤은 1분기 최대 실적, 톡신과 필러 해외 판매 확대, 북남미 성장이라는 직접 실적 모멘텀이 확인됐다. 다만 전날 판단처럼 2분기 둔화 우려와 단기 반영 부담이 있어 BUY보다 WATCH가 적절했다.</p>
+                  </div>
+            
+
+                  <div class="sentence-box risk">
+                    <div class="sentence-label">예상이 틀어진 부분</div>
+                    <p>예상은 +0.4%였지만 실제는 -0.6% 수준이었다. 실적 모멘텀은 이미 5월 초부터 알려졌고, 한국경제 분석처럼 2분기 조심 요인이 병존해 다음날 장전 추가 매수세가 약했다.</p>
+                  </div>
+            
+
+                  <div class="sentence-box evidence">
+                    <div class="sentence-label">새로 확인된 뉴스</div>
+                    <p>휴젤은 1분기 매출 1,166억원, 영업이익 476억원으로 1분기 기준 최대 실적을 기록했다. 해외 톡신·필러 판매 확대와 미국 2년차 반복 발주 기대가 있으나, 단기적으로는 다음 분기 흐름 확인이 필요하다는 분석도 있었다.</p>
+                  </div>
+            
+
+                  <div class="sentence-box decision">
+                    <div class="sentence-label">원인 판단</div>
+                    <p>실적 재료는 유효했지만 신규성이 약하고 2분기 확인 부담이 있었다. 원인은 기존 호재 선반영과 단기 실적 피크 우려로 판단한다.</p>
+                  </div>
+            
+
+                  <div class="sentence-box evidence">
+                    <div class="sentence-label">출처</div>
+                    <p>Daum 2026-05-07 휴젤 1분기 최대 실적 https://v.daum.net/v/20260507175715575; 한국경제 2026-05-08 휴젤 최대 실적과 2분기 경계 https://www.hankyung.com/article/202605084127i; DealSite경제TV 2026-02 휴젤 해외 판매 확대 https://news.dealsitetv.com/articles/165502</p>
+                  </div>
+            
+                </div>
+              </div>
+            </article>
+            
+            <article class="card qual-card prediction-card watch">
+              <div class="qual-head">
+                <div>
+                  <div class="label-row">
+                    <div class="label watch">관찰</div>
+                    <span>036620</span>
+                  </div>
+                  <h3>감성코퍼레이션</h3>
+                </div>
+                <div class="confidence prediction-result"><span>예측 결과</span><b class="neutral">예상 부합</b></div>
+              </div>
+              <div class="summary-panel qualitative-summary">
+                <div class="panel-title">예측 검증</div>
+                <div class="summary-grid qualitative-grid">
+                  <div class="summary-item"><div class="item-label"><span class="hint-wrap" aria-label="실제 거래 종목은 체결 평균 매수가, 미거래 종목은 전날 정성평가 시점 가격입니다.">매수가<span class="hint-text">실제 거래 종목은 체결 평균 매수가, 미거래 종목은 전날 정성평가 시점 가격입니다.</span></span></div><b>5,230원</b></div>
+<div class="summary-item"><div class="item-label"><span class="hint-wrap" aria-label="실제 거래 종목은 체결 평균 매도가, 미거래 종목은 매도일 08:30 가격입니다.">매도가<span class="hint-text">실제 거래 종목은 체결 평균 매도가, 미거래 종목은 매도일 08:30 가격입니다.</span></span></div><b>5,230원</b></div>
+<div class="summary-item"><div class="item-label"><span class="hint-wrap" aria-label="다음날 NXT 초반 가격이 기준가 대비 얼마나 움직일지 잡은 보수적 예상치입니다.">예상 등락률<span class="hint-text">다음날 NXT 초반 가격이 기준가 대비 얼마나 움직일지 잡은 보수적 예상치입니다.</span></span></div><b>+0.20%</b></div>
+<div class="summary-item"><div class="item-label"><span class="hint-wrap" aria-label="매수가와 매도가 기준으로 계산한 결과 수익률입니다.">수익률<span class="hint-text">매수가와 매도가 기준으로 계산한 결과 수익률입니다.</span></span></div><b><span class="positive">+0.00%</span></b></div>
+<div class="summary-item"><div class="item-label">차이</div><b><span class="negative">-0.20%p</span></b></div>
+                </div>
+              </div>
+              <div class="sentence-panel">
+                <div class="sentence-stack">
+                  
+                  <div class="sentence-box catalyst">
+                    <div class="sentence-label">예상과 부합한 부분</div>
+                    <p>감성코퍼레이션의 자사주 전량 소각과 중장기 주주환원 정책은 실제 확인된 호재였다. 다음날 08:30 가격이 보합으로 유지돼, 강한 상승보다는 제한적 방어 요인이라는 WATCH 판단과 대체로 맞았다.</p>
+                  </div>
+            
+
+                  <div class="sentence-box risk">
+                    <div class="sentence-label">예상이 틀어진 부분</div>
+                    <p>예상한 +0.2%에는 못 미쳤다. 자사주 소각은 긍정적이지만 6월 15일 이미 공개된 재료였고, 거래대금과 신규성이 약해 장전 추가 상승을 만들지는 못했다.</p>
+                  </div>
+            
+
+                  <div class="sentence-box evidence">
+                    <div class="sentence-label">새로 확인된 뉴스</div>
+                    <p>감성코퍼레이션은 6월 15일 보유 자사주 64만827주 전량 소각을 결정했고, 2024~2026년 순이익 50% 이상을 주주환원에 쓰겠다는 정책을 재확인했다. 1분기 실적 성장도 언급됐지만 다음날 아침 새 촉매는 제한적이었다.</p>
+                  </div>
+            
+
+                  <div class="sentence-box decision">
+                    <div class="sentence-label">원인 판단</div>
+                    <p>주주환원은 하방 방어에는 도움이 됐지만 단기 추격 매수 재료로는 부족했다. 원인은 호재 선반영, 낮은 거래대금, 신규 촉매 부재로 판단한다.</p>
+                  </div>
+            
+
+                  <div class="sentence-box evidence">
+                    <div class="sentence-label">출처</div>
+                    <p>연합뉴스 2026-06-15 감성코퍼레이션 자사주 소각 https://www.yna.co.kr/amp/view/AKR20260615121800030; 뉴스핌 2026-06-15 자사주 전량 소각 및 1분기 성장 https://www.newspim.com/news/view/20260615000827</p>
+                  </div>
+            
+                </div>
+              </div>
+            </article>
+            
+            <article class="card qual-card prediction-card exclude">
+              <div class="qual-head">
+                <div>
+                  <div class="label-row">
+                    <div class="label exclude">제외</div>
+                    <span>352480</span>
+                  </div>
+                  <h3>씨앤씨인터내셔널</h3>
+                </div>
+                <div class="confidence prediction-result"><span>예측 결과</span><b class="negative">예상 하회</b></div>
+              </div>
+              <div class="summary-panel qualitative-summary">
+                <div class="panel-title">예측 검증</div>
+                <div class="summary-grid qualitative-grid">
+                  <div class="summary-item"><div class="item-label"><span class="hint-wrap" aria-label="실제 거래 종목은 체결 평균 매수가, 미거래 종목은 전날 정성평가 시점 가격입니다.">매수가<span class="hint-text">실제 거래 종목은 체결 평균 매수가, 미거래 종목은 전날 정성평가 시점 가격입니다.</span></span></div><b>21,550원</b></div>
+<div class="summary-item"><div class="item-label"><span class="hint-wrap" aria-label="실제 거래 종목은 체결 평균 매도가, 미거래 종목은 매도일 08:30 가격입니다.">매도가<span class="hint-text">실제 거래 종목은 체결 평균 매도가, 미거래 종목은 매도일 08:30 가격입니다.</span></span></div><b>21,300원</b></div>
+<div class="summary-item"><div class="item-label"><span class="hint-wrap" aria-label="다음날 NXT 초반 가격이 기준가 대비 얼마나 움직일지 잡은 보수적 예상치입니다.">예상 등락률<span class="hint-text">다음날 NXT 초반 가격이 기준가 대비 얼마나 움직일지 잡은 보수적 예상치입니다.</span></span></div><b>-0.20%</b></div>
+<div class="summary-item"><div class="item-label"><span class="hint-wrap" aria-label="매수가와 매도가 기준으로 계산한 결과 수익률입니다.">수익률<span class="hint-text">매수가와 매도가 기준으로 계산한 결과 수익률입니다.</span></span></div><b><span class="negative">-1.16%</span></b></div>
+<div class="summary-item"><div class="item-label">차이</div><b><span class="negative">-0.96%p</span></b></div>
+                </div>
+              </div>
+              <div class="sentence-panel">
+                <div class="sentence-stack">
+                  
+                  <div class="sentence-box catalyst">
+                    <div class="sentence-label">예상과 부합한 부분</div>
+                    <p>씨앤씨인터내셔널은 50억원 규모 자사주 취득 신탁계약이라는 주주가치 제고 재료가 확인됐지만, 전날 판단처럼 거래대금이 작고 화장품 업종 반등 기대에 가까운 재료라 자동매수 후보 제외가 맞았다. 실제 수익률도 마이너스였다.</p>
+                  </div>
+            
+
+                  <div class="sentence-box risk">
+                    <div class="sentence-label">예상이 틀어진 부분</div>
+                    <p>예상은 -0.2%였으나 실제 하락폭은 -1%대였다. 자사주 매입 공시 효과는 5월 26일 당일 이미 반영됐고, 이후에는 업종 약세와 저유동 변동성이 더 크게 작용했다.</p>
+                  </div>
+            
+
+                  <div class="sentence-box evidence">
+                    <div class="sentence-label">새로 확인된 뉴스</div>
+                    <p>5월 26일 씨앤씨인터내셔널은 KB증권과 50억원 규모 자기주식 취득 신탁계약을 체결했고, 같은 날 화장품 섹터 약세 속에서도 공시 효과로 급등했다는 보도가 있었다. 6월 18일 아침에는 추가 신규 회사 뉴스가 뚜렷하지 않았다.</p>
+                  </div>
+            
+
+                  <div class="sentence-box decision">
+                    <div class="sentence-label">원인 판단</div>
+                    <p>자사주 매입은 단기 이벤트였고 다음날 평가 구간에서는 후속 촉매가 부족했다. 원인은 공시 효과 소멸, 화장품 업종 수급 약세, 저유동 변동성으로 판단한다.</p>
+                  </div>
+            
+
+                  <div class="sentence-box evidence">
+                    <div class="sentence-label">출처</div>
+                    <p>Investing 2026-05-26 씨앤씨인터내셔널 50억 자사주 취득 신탁 https://kr.investing.com/news/global-filings/article-93CH-1959402; 뉴스톱 2026-05-26 자사주 취득 계약 https://www.newstopkorea.com/news/articleView.html?idxno=45147; 뷰티경제 2026-05-26 화장품 섹터 약세 속 자사주 매입 효과 https://www.thebk.co.kr/news/articleView.html?idxno=309776</p>
+                  </div>
+            
+                </div>
+              </div>
+            </article>
+            </div>
+</section>
+
+<section>
+  <h2>3. 회고 / 개선 포인트</h2>
+  <div class="note-grid">
+    <div class="note-box">
+      <h3>오늘 맞은 판단 / 틀린 판단</h3>
+      <p class="muted">아직 작성된 회고 메모가 없습니다.</p>
+    </div>
+    <div class="note-box">
+      <h3>다음 보정 규칙</h3>
+      <p class="muted">아직 작성된 개선 포인트가 없습니다.</p>
+    </div>
+  </div>
+</section>
+        
+</div></body></html>
